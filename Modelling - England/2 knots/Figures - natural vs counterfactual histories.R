@@ -9,6 +9,7 @@
 # ------------------------------------------------------------------------------
 
 # Load required packages
+packrat::restore()
 library(tidyverse); library(ggpubr); library(scales)
 
 # Run source code to import and format data

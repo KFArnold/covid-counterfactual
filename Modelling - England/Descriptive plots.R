@@ -9,8 +9,8 @@
 # ------------------------------------------------------------------------------
 
 # Load required packages
+packrat::restore()
 library(tidyverse); library(ggpubr); library(scales)
-# Note that version 3.3 of ggplot2 is required for some helper funcs used below
 
 # Run source code to import and format data
 source("./Modelling - England/Import and format data.R")
