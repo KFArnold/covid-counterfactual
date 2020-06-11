@@ -40,4 +40,6 @@ vignettes/*.pdf
 
 # Mac Desktop Services Store
 **/.DS_Store
+
+# Packrat
 packrat/lib*/
