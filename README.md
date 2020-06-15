@@ -20,7 +20,10 @@ Growth is simulated under three conditions:
 1. R scripts for importing/formatting data and producing descriptive plots
     1. **Import and format data.R**: Imports and formats cases/deaths data for use in other scripts
     1. **Descriptive plots.R**: Produces descriptive plots of data (incident and cumulative cases/deaths, case fatality ratios)
+<<<<<<< HEAD
     
+=======
+>>>>>>> ce85cde14912cfd38ea9c6cba3189f529487ddb3
 2. Sub-folder *2 knots* for simulation code and output
     2. **Identify 2 knot points.R**: Finds the points at which growth of COVID-19 cases changes by fitting a linear spline with autocorrelated errors and finding the best knot point pairs
         * The best knot point pairs are saved in the .csv file *Best knot points.csv*
