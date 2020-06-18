@@ -341,8 +341,8 @@ summary_deaths_sim <- bind_rows(tibble(knots_true,
 # Export all summary data
 write_csv(summary_daily_cases_sim, path = paste0(out, "Summary - daily cases.csv"))
 write_csv(summary_cumulative_cases_end_sim, path = paste0(out, "Summary - cumulative cases.csv"))
-write_csv(summary_growth_eng_sim, path = paste0(out, "Summary - growth factors.csv"))
-write_csv(summary_deaths_eng_sim, path = paste0(out, "Summary - deaths.csv"))
+write_csv(summary_growth_factor_sim, path = paste0(out, "Summary - growth factors.csv"))
+write_csv(summary_deaths_sim, path = paste0(out, "Summary - deaths.csv"))
 
 # ------------------------------------------------------------------------------
 # Figures
