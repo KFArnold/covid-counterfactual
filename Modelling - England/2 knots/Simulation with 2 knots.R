@@ -62,9 +62,9 @@ Summarise_centiles <- function(x) {
 # View dataframe containing best knot points
 knots_best
 
-# Choose knot dates which result in best fit to overall cumulative cases
-knot_date_1 <- filter(knots_best, RMSE_cum == min(RMSE_cum))$Knot_date_1  
-knot_date_2 <- filter(knots_best, RMSE_cum == min(RMSE_cum))$Knot_date_2  
+# Choose knot dates which result in best fit to overall incident cases
+knot_date_1 <- filter(knots_best, RMSE_inc == min(RMSE_inc))$Knot_date_1  
+knot_date_2 <- filter(knots_best, RMSE_inc == min(RMSE_inc))$Knot_date_2  
 
 # Create folder for storing knot-specific outputs if none exists
 # and set as storage directory for outputs
