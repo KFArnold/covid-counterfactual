@@ -1,0 +1,390 @@
+Simulation,Description,Date_sd,Date_lockdown,Knot_date_1,Knot_date_2,Date,Mean,C_025,C_975
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-01-30,1,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-01-31,2,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-02-03,8,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-02-05,9,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-02-08,12,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-02-09,13,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-02-11,14,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-02-12,15,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-02-13,16,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-02-14,17,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-02-17,18,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-02-19,19,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-02-21,20,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-02-23,24,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-02-24,25,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-02-25,29,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-02-26,32,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-02-27,38,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-02-28,50,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-02-29,54,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-01,85,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-02,124,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-03,176,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-04,225,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-05,272,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-06,345,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-07,392,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-08,442,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-09,566,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-10,789,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-11,1143,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-12,1556,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-13,1948,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-14,2265,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-15,2662,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-16,3208,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-17,3887,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-18,4796,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-19,5727,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-20,6808,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-21,7842,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-22,9048,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-23,11065,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-24,13085,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-25,15346,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-26,17955,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-27,20612,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-28,22981,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-29,25416,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-30,28907,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-31,32666,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-01,36749,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-02,40755,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-03,44798,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-04,48118,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-05,51148,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-06,55473,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-07,59951,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-08,64180,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-09,68184,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-10,71690,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-11,74684,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-12,77366,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-13,80670,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-14,84086,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-15,87683,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-16,91122,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-17,94540,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-18,97113,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-19,99201,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-20,102277,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-21,105265,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-22,108025,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-23,110787,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-24,113557,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-25,115366,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-26,116771,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-27,118994,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-28,121269,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-29,123607,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-30,125731,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-01,127678,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-02,128917,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-03,129878,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-04,131490,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-05,133079,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-06,134507,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-07,135942,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-08,136957,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-09,137846,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-10,138572,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-11,139807,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-12,140903,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-13,141979,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-14,142879,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-15,143785,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-16,144420,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-17,145054,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-18,145989,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-19,147014,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-20,147833,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-21,148577,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-22,149279,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-23,149733,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-24,150118,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-25,150628,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-26,151170,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-27,151716,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-28,152168,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-29,152607,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-30,152952,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-31,153258,NA,NA
+True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-06-01,153699,NA,NA
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-02,124,124,124
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-03,171,147,208
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-04,227,171,325
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-05,295,194,485
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-06,376,216,702
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-07,474,239,997
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-08,592,262,1371
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-09,734,287,1863
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-10,905,312,2500
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-11,1111,339,3311
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-12,1358,367,4363
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-13,1654,396,5643
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-14,2010,427,7234
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-15,2438,460,9284
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-16,2950,495,11722
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-17,3567,531,14758
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-18,4311,569,18581
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-19,5208,609,23433
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-20,6282,655,29144
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-21,7576,702,36318
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-22,9126,752,45099
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-23,10996,804,56333
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-24,13018,855,68375
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-25,15202,908,81556
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-26,17565,964,95486
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-27,20119,1017,111606
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-28,22884,1070,127763
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-29,25883,1125,145771
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-30,29126,1184,165994
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-03-31,32633,1244,187658
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-01,36422,1306,210447
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-02,40522,1371,237319
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-03,44508,1439,261540
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-04,48375,1499,285070
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-05,52132,1556,307732
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-06,55781,1608,330538
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-07,59333,1661,353482
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-08,62754,1709,374623
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-09,66091,1755,398952
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-10,69376,1804,421225
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-11,72562,1845,440388
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-12,75649,1883,460207
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-13,78621,1920,480301
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-14,81511,1953,496228
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-15,84329,1983,516123
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-16,87025,2008,530818
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-17,89612,2038,550273
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-18,92114,2066,566420
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-19,94574,2093,582586
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-20,96966,2113,596968
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-21,99273,2136,612704
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-22,101513,2158,628731
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-23,103670,2178,644056
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-24,105759,2198,660232
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-25,107816,2218,675438
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-26,109798,2233,687181
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-27,111737,2258,700017
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-28,113605,2272,711231
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-29,115433,2282,721982
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-04-30,117230,2293,737773
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-01,118984,2306,750225
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-02,120680,2313,763722
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-03,122348,2323,771531
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-04,123978,2336,777648
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-05,125555,2349,787622
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-06,127097,2357,795436
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-07,128582,2364,806520
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-08,130032,2372,820105
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-09,131429,2383,826832
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-10,132775,2397,836355
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-11,134066,2410,845645
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-12,135307,2417,852722
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-13,136514,2426,862102
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-14,137684,2435,872124
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-15,138814,2444,881753
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-16,139908,2454,886505
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-17,140977,2461,894287
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-18,142004,2464,906841
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-19,142995,2479,912553
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-20,143951,2482,916005
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-21,144869,2490,922804
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-22,145771,2495,927472
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-23,146646,2499,934063
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-24,147487,2502,941029
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-25,148297,2507,947281
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-26,149091,2509,951655
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-27,149866,2516,955168
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-28,150616,2518,961865
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-29,151341,2522,965359
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-30,152041,2523,966053
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-05-31,152721,2526,969262
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-06-01,153379,2528,971444
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-02,124,124,124
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-03,171,147,209
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-04,227,171,326
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-05,295,194,489
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-06,377,217,709
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-07,474,240,997
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-08,592,264,1378
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-09,734,288,1884
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-10,906,314,2511
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-11,1111,341,3311
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-12,1358,369,4327
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-13,1655,399,5604
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-14,2013,430,7215
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-15,2444,463,9229
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-16,2964,500,11724
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-17,3526,533,14589
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-18,4134,564,17735
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-19,4790,598,21200
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-20,5499,631,24942
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-21,6267,666,29222
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-22,7097,701,33642
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-23,7995,741,38408
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-24,8968,782,43464
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-25,10020,826,49367
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-26,11156,872,55466
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-27,12255,917,61680
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-28,13318,958,67219
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-29,14350,992,72798
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-30,15353,1028,78316
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-03-31,16326,1063,83842
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-01,17268,1096,88818
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-02,18181,1128,93818
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-03,19068,1159,98660
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-04,19932,1184,103968
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-05,20772,1212,108840
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-06,21587,1231,113427
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-07,22380,1249,118324
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-08,23148,1268,122996
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-09,23897,1287,127445
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-10,24624,1307,131789
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-11,25329,1320,136363
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-12,26013,1337,140362
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-13,26674,1350,143950
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-14,27318,1362,147865
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-15,27937,1374,151347
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-16,28540,1384,155555
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-17,29125,1399,158780
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-18,29693,1408,161759
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-19,30242,1423,165356
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-20,30775,1432,169091
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-21,31292,1441,172099
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-22,31791,1450,175083
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-23,32276,1459,177717
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-24,32747,1469,180987
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-25,33205,1475,183940
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-26,33651,1482,186877
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-27,34083,1488,189855
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-28,34505,1496,192298
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-29,34914,1501,194909
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-04-30,35309,1510,196709
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-01,35690,1514,199275
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-02,36057,1522,201470
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-03,36415,1527,204347
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-04,36763,1530,206444
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-05,37103,1537,208659
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-06,37431,1542,211473
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-07,37749,1548,213350
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-08,38055,1555,215306
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-09,38351,1557,217349
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-10,38639,1560,219129
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-11,38918,1562,221067
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-12,39192,1566,222648
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-13,39457,1569,224633
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-14,39714,1572,226231
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-15,39965,1576,227892
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-16,40209,1579,229280
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-17,40453,1581,230554
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-18,40691,1583,231629
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-19,40921,1588,232933
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-20,41143,1590,234240
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-21,41358,1593,235620
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-22,41567,1595,236625
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-23,41772,1596,238279
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-24,41969,1598,240296
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-25,42159,1601,241440
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-26,42348,1603,243369
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-27,42531,1605,243855
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-28,42707,1607,245102
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-29,42876,1609,246640
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-30,43040,1612,247677
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-05-31,43199,1613,248644
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-06-01,43352,1614,250216
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-02,124,124,124
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-03,171,147,208
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-04,227,171,326
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-05,295,194,485
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-06,376,217,702
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-07,474,240,993
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-08,591,265,1363
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-09,731,289,1827
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-10,883,313,2355
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-11,1047,337,2936
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-12,1224,362,3593
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-13,1416,387,4322
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-14,1623,413,5113
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-15,1848,441,5959
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-16,2090,471,6889
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-17,2352,503,7900
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-18,2635,535,8981
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-19,2942,568,10201
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-20,3239,599,11360
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-21,3528,630,12569
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-22,3809,658,13712
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-23,4081,682,14814
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-24,4346,708,15923
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-25,4603,731,17103
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-26,4852,754,18284
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-27,5094,771,19297
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-28,5328,789,20368
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-29,5556,804,21458
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-30,5777,822,22542
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-03-31,5991,837,23506
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-01,6200,850,24521
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-02,6402,863,25548
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-03,6599,874,26490
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-04,6790,884,27429
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-05,6975,892,28353
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-06,7155,902,29352
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-07,7329,910,30297
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-08,7496,918,31306
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-09,7658,927,32127
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-10,7816,934,32995
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-11,7969,941,33730
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-12,8118,946,34540
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-13,8262,953,35551
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-14,8401,960,36297
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-15,8536,965,36975
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-16,8668,973,37726
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-17,8796,978,38472
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-18,8920,983,39245
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-19,9041,987,39898
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-20,9159,991,40526
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-21,9273,995,41321
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-22,9383,999,41996
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-23,9491,1002,42582
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-24,9595,1005,43101
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-25,9695,1009,43643
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-26,9793,1012,44246
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-27,9887,1016,44777
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-28,9978,1020,45190
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-29,10066,1022,45687
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-04-30,10151,1025,46132
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-01,10234,1029,46507
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-02,10313,1032,46932
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-03,10390,1034,47384
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-04,10465,1037,47724
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-05,10538,1038,48339
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-06,10608,1040,48894
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-07,10677,1043,49176
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-08,10743,1044,49513
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-09,10808,1046,49925
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-10,10872,1049,50271
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-11,10933,1051,50547
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-12,10993,1051,50785
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-13,11051,1053,51088
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-14,11108,1054,51391
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-15,11163,1056,51701
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-16,11216,1058,52072
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-17,11266,1059,52340
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-18,11316,1061,52543
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-19,11364,1063,52945
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-20,11412,1065,53165
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-21,11458,1066,53559
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-22,11502,1067,53751
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-23,11546,1069,54109
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-24,11588,1070,54429
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-25,11629,1070,54686
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-26,11669,1072,55040
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-27,11708,1073,55286
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-28,11745,1074,55455
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-29,11782,1076,55650
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-30,11817,1076,55917
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-05-31,11852,1077,56204
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-06-01,11885,1079,56432
