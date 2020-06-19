@@ -26,9 +26,8 @@ Growth is simulated under three conditions:
 2. Sub-folder *2 knots* for simulation code and output
     1. **Identify 2 knot points.R**: Finds the points at which growth of COVID-19 cases changes by fitting a linear spline with autocorrelated errors and finding the best knot point pairs
         * The best knot point pairs are saved in the .csv file *Best knot points.csv*
-    2. **Simulation with 2 knots.R**: Simulates the growth of COVID-19 cases under both natural and counterfactual growth, ane estimates the number of deaths expected under each condition
-        * Simulation outputs are stored in sub-folders named with the pair of knot dates used
-    3. **Figures - natural vs counterfactual histories.R**: Produces figures of incident and cumulative cases for both natural and counterfactual growth
+    2. **Simulation with 2 knots.R**: Simulates the growth of COVID-19 cases under both natural and counterfactual growth, estimates the number of deaths expected under each condition, and produces figures of incident and cumulative cases for both natural and counterfactual growth
+        * Simulation outputs and figures are stored in sub-folders named with the pair of knot dates used
 
 
 *packrat* folder contains package management files.
@@ -39,5 +38,6 @@ To simulate the growth of COVID-19 cases in England between 3 March and 1 June u
 
 * Imports a .csv file containing the best knot point pairs identified (*Best knot points.csv*);
 * Selects a specified pair of knot points and estimates the growth parameters associated with those knot points;
-* Simulates the natural and counterfactual growth of COVID-19 according to the selected knot points and growth parameters; and
-* Saves simulation outputs to a sub-folder (named with the pair of knot dates used).
+* Simulates the natural and counterfactual growth of COVID-19 according to the selected knot points and growth parameters; 
+* Produces figures of incident and cumulative cases for both natural and counterfactual growth; and
+* Saves simulation summary outputs and figures to a sub-folder (named with the pair of knot dates used).

@@ -2,9 +2,15 @@
 # Notes
 # ------------------------------------------------------------------------------
 
-# This script finds points where growth rate of Covid-19 cases changes 
-# by fitting ARIMA spline to incident ~ cumulative case 
-# and selecting knot points according to a range of different fit criteria
+# This script finds the 'best' pairs of dates where the growth rate of COVID-19 cases changes,
+# from a list of candidate pairs of dates.
+
+# For each candidate pair, an ARIMA spline model is fit with the pair of dates as knot points.
+# The growth factor for each of the spline segments is estimated from this model,
+# and the growth of cases is simulated using the estimated growth factors.
+
+# The 'best' pairs of dates are selected according to how well their estimated growth factors
+# fit the observed growth of COVID-19 cases (both incident and cumulative cases).
 
 # ------------------------------------------------------------------------------
 # Set up
@@ -28,9 +34,25 @@ out <- path
 # Estimate when exponential growth changed 
 # ------------------------------------------------------------------------------
 
-# Define potential knot dates:
+## Set simulation parameters --------------------------------------------------- 
+
+# Define potential knot dates
 possible_knot_dates_1 <- seq(from = date_sd, to = date_sd + 21, by = 1)
 possible_knot_dates_2 <- seq(from = date_lockdown, to = date_lockdown + 21, by = 1)
+
+# Set dates to simulate
+dates <- seq.Date(from = date_100, to = date_T, by = 1)
+
+# Create matrices for simulated data (daily and cumulative cases)
+# (1 row per simulation run, 1 col per date)
+daily_cases_sim <- cumulative_cases_end_sim <- 
+  matrix(nrow = 1, ncol = length(dates) + 1,
+         dimnames = list(1, as.character(seq.Date(from = date_100 - 1, to = date_T, by = 1))))
+# Initialise matrices with data at date_100 - 1
+daily_cases_sim[, 1] <- filter(cases_eng, Date == (date_100 - 1))$Daily_cases
+cumulative_cases_end_sim[, 1] <- filter(cases_eng, Date == (date_100 - 1))$Cumulative_cases_end
+
+## Create dataframe to store simulation outputs --------------------------------
 
 # Create dataframe of all possible combinations of 2 knot dates
 knots <- tibble(Knot_date_1 = as.Date(character()),
@@ -42,15 +64,19 @@ knots <- tibble(Knot_date_1 = as.Date(character()),
                 BIC = as.numeric(),
                 RMSE_inc = as.numeric(),
                 RMSE_cum = as.numeric(),
-                Abs_diff_cum_end = as.numeric())
+                Diff_cum_end = as.numeric())
 grid <- tibble(expand.grid(possible_knot_dates_2, possible_knot_dates_1))
 names(grid) <- c("Knot_date_2", "Knot_date_1")
 grid <- grid %>% select("Knot_date_1", "Knot_date_2") %>% filter(Knot_date_1 < Knot_date_2)
 knots <- bind_rows(knots, grid)
 
+## Estimate growth of cases for each pair of knot dates ------------------------
+
 # Fit spline of incidence ~ cumulative for each set of potential knot points
 # Evaluate: spline fit statistics (AIC, BIC), and how well model parameters fit observed growth of data
-# (RMSE of both incident and cumulative cases,  and absolute difference between cumulative cases at end of simulation)
+# (RMSE of both incident and cumulative cases,  and difference between cumulative cases at end of simulation)
+
+# (1) Iterate through pairs of knot points
 for (i in 1:nrow(knots)) {
   
   # Set knot dates
@@ -69,8 +95,8 @@ for (i in 1:nrow(knots)) {
   
   # Fit ARIMA model w/ specified knot points (no intercept)
   spline <- Arima(data$Daily_cases, order = c(2, 0, 0), 
-                 seasonal = list(order = c(1, 0, 0), period = 7),
-                 xreg = as.matrix(data[, 2:4]), include.constant = FALSE)
+                  seasonal = list(order = c(1, 0, 0), period = 7),
+                  xreg = as.matrix(data[, 2:4]), include.constant = FALSE)
   
   # Record model parameters
   spline_slope_1 <- as.numeric(coef(spline)["Cumulative_cases_beg_1"])  # slope of segement 1
@@ -85,23 +111,13 @@ for (i in 1:nrow(knots)) {
   # Record model summaries
   knots[[i, "AIC"]] <- AIC(spline)
   knots[[i, "BIC"]] <- BIC(spline)
-
-  # Create dataframe for simulated model data
-  # Set all cases to NA
-  sim_data <- cases_eng %>% filter(Date >= (date_100 - 1) & Date <= date_T) %>% 
-    select(c(Date, Cumulative_cases_beg, Daily_cases, Cumulative_cases_end))
-  sim_data[sim_data$Date >= date_100, 
-           c("Cumulative_cases_beg", 
-             "Daily_cases", 
-             "Cumulative_cases_end")] <- NA
   
-  # Estimate growth of cases using knot point
-  dates <- seq.Date(from = date_100, to = date_T, by = 1)
+  # (2) Estimate growth of cases using knot points
   for (t in as.list(dates)) {
     
-    # Get cumulative cases at beginning of time t
-    cum_t_beg <- as.numeric(sim_data[sim_data$Date == (t-1), "Cumulative_cases_end"])
-    sim_data[sim_data$Date == t, "Cumulative_cases_beg"] <- cum_t_beg
+    # Get daily and cumulative cases from time t-1
+    inc_tminus1 <- daily_cases_sim[, as.character(t-1)]
+    cum_tminus1 <- cumulative_cases_end_sim[, as.character(t-1)]
     
     # Define growth parameters
     if (t <= knot_date_1) {
@@ -113,36 +129,39 @@ for (i in 1:nrow(knots)) {
     }
     
     # Calculate daily cases at time t and record
-    inc_tminus1 <- as.numeric(sim_data[sim_data$Date == (t-1), "Daily_cases"])
     inc_t <- round(growth*inc_tminus1)
-    sim_data[sim_data$Date == t, "Daily_cases"] <- inc_t
+    daily_cases_sim[, as.character(t)] <- inc_t
     
     # Calculate cumulative cases at end of time t and record
-    cum_t_end <- as.numeric(cum_t_beg + inc_t)
-    sim_data[sim_data$Date == t, "Cumulative_cases_end"] <- cum_t_end
+    cum_t <- cum_tminus1 + inc_t
+    cumulative_cases_end_sim[, as.character(t)] <- cum_t
     
-  }
+  }  # close loop (2)
   
   # Calculate and record RMSE 
   ## (1) For true vs predicted incident cases
   true_inc <- cases_eng_100$Daily_cases
-  pred_inc <- filter(sim_data, Date >= date_100)$Daily_cases
+  pred_inc <- daily_cases_sim[1, -1]
+  #pred_inc <- filter(sim_data, Date >= date_100)$Daily_cases
   knots[i, "RMSE_inc"] <- rmse(true_inc, pred_inc)
   ## (2) For true vs predicted cumulative cases
   true_cum <- cases_eng_100$Cumulative_cases_end
-  pred_cum <- filter(sim_data, Date >= date_100)$Cumulative_cases_end
+  pred_cum <- cumulative_cases_end_sim[1, -1]
+  #pred_cum <- filter(sim_data, Date >= date_100)$Cumulative_cases_end
   knots[i, "RMSE_cum"] <- rmse(true_cum, pred_cum)
   
   # Calculate absolute difference between cumulative cases at end of simulation vs true
   true_cum_end <- filter(cases_eng_100, Date == date_T)$Cumulative_cases_end
-  pred_cum_end <- filter(sim_data, Date == date_T)$Cumulative_cases_end
-  knots[i, "Abs_diff_cum_end"] <- abs(true_cum_end - pred_cum_end)
+  pred_cum_end <- cumulative_cases_end_sim[1, ncol(cumulative_cases_end_sim)]
+  knots[i, "Diff_cum_end"] <- true_cum_end - pred_cum_end
+  #pred_cum_end <- filter(sim_data, Date == date_T)$Cumulative_cases_end
+  #knots[i, "Abs_diff_cum_end"] <- abs(true_cum_end - pred_cum_end)
   
   # Display progress 
   cat('\r', paste(round((i / nrow(knots) * 100), 0), 
                   "% done    ", sep = " "))
   
-}
+}  # close loop (1)
 
 # Calculate knots with lowest RMSE_inc
 knots1 <- knots %>% arrange(RMSE_inc) %>% head(10)
@@ -151,11 +170,11 @@ knots1 <- knots %>% arrange(RMSE_inc) %>% head(10)
 knots2 <- knots %>% arrange(RMSE_cum) %>% head(10)
 
 # Calculate knots with lowest absolute difference in cumulative cases at end
-knots3 <- knots %>% arrange(Abs_diff_cum_end) %>% head(10)
+knots3 <- knots %>% arrange(abs(Diff_cum_end)) %>% head(10)
 
 # Keep matches between three datsets
 knots_best <- knots1[(knots1$Knot_date_1 %in% knots2$Knot_date_1 & knots1$Knot_date_1 %in% knots3$Knot_date_1) & 
-         (knots1$Knot_date_2 %in% knots2$Knot_date_2 & knots1$Knot_date_2 %in% knots3$Knot_date_2), ]
+                       (knots1$Knot_date_2 %in% knots2$Knot_date_2 & knots1$Knot_date_2 %in% knots3$Knot_date_2), ]
 knots_best
 
 # Export
