@@ -1,9 +1,9 @@
 Simulation,Description,Date_sd,Date_lockdown,Knot_date_1,Knot_date_2,Date,CFR,CFR_value,Mean,C_025,C_975
 True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-06-01,cfr_hosp_dod,0.17636419234998277,27107,NA,NA
 True,True,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-06-01,cfr_hosp_dor,0.22650114834839524,34813,NA,NA
-Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-06-01,cfr_hosp_dod,0.17636419234998277,27050,446,171328
-Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-06-01,cfr_hosp_dor,0.22650114834839524,34740,573,220033
-Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-06-01,cfr_hosp_dod,0.17636419234998277,7646,285,44130
-Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-06-01,cfr_hosp_dor,0.22650114834839524,9819,366,56675
-Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-06-01,cfr_hosp_dod,0.17636419234998277,2096,190,9952
-Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-06-01,cfr_hosp_dor,0.22650114834839524,2692,244,12782
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-06-01,cfr_hosp_dod,0.17636419234998277,26938,21995,32679
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-03-23,2020-04-02,2020-06-01,cfr_hosp_dor,0.22650114834839524,34596,28248,41969
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-06-01,cfr_hosp_dod,0.17636419234998277,7621,6450,8945
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-03-16,2020-03-26,2020-06-01,cfr_hosp_dor,0.22650114834839524,9788,8284,11488
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-06-01,cfr_hosp_dod,0.17636419234998277,2134,1888,2399
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-03-09,2020-03-19,2020-06-01,cfr_hosp_dor,0.22650114834839524,2740,2425,3081
