@@ -66,6 +66,13 @@ knots_best
 knot_date_1 <- filter(knots_best, RMSE_inc == min(RMSE_inc))$Knot_date_1  
 knot_date_2 <- filter(knots_best, RMSE_inc == min(RMSE_inc))$Knot_date_2  
 
+## Alternately, choose knot dates which result in best fit to overall cumulative cases...
+#knot_date_1 <- filter(knots_best, RMSE_cum == min(RMSE_cum))$Knot_date_1  
+#knot_date_2 <- filter(knots_best, RMSE_cum == min(RMSE_cum))$Knot_date_2  
+## ...or select particular set of knot dates from list, e.g.
+#knot_date_1 <- knots_best[[3, "Knot_date_1"]]
+#knot_date_2 <- knots_best[[3, "Knot_date_2"]]
+
 # Create folder for storing knot-specific outputs if none exists
 # and set as storage directory for outputs
 folder <- paste(knot_date_1, "and", knot_date_2, sep = " ")
@@ -91,32 +98,20 @@ spline <- Arima(data$Daily_cases, order = c(2, 0, 0),
                 seasonal = list(order = c(1, 0, 0), period = 7),
                 xreg = as.matrix(data[, 2:4]), include.constant = FALSE)
 
-# Calculate number of time points in each spline segment
-n_1 <- nrow(filter(cases_eng_100, Date <= knot_date_1))
-n_2 <- nrow(filter(cases_eng_100, Date > knot_date_1 & Date <= knot_date_2))
-n_3 <- nrow(filter(cases_eng_100, Date > knot_date_2))
-
-# Record model parameters
-## Slope and intercept
-spline_int_1 <- 0
-spline_slope_1 <- coef(spline)[["Cumulative_cases_beg_1"]]  # slope of segement 1
-spline_slope_2 <- coef(spline)[["Cumulative_cases_beg_2"]]  # slope of segement 2
-spline_slope_3 <- coef(spline)[["Cumulative_cases_beg_3"]]  # slope of segement 3
-spline_int_2 <- (spline_int_1 + spline_slope_1*knot_1) - spline_slope_2*knot_1
-spline_int_3 <- (spline_int_2 + spline_slope_2*knot_2) - spline_slope_3*knot_2
+# Record model slopes
+spline_slope_1 <- coef(spline)[["Cumulative_cases_beg_1"]]  # segment 1
+spline_slope_2 <- coef(spline)[["Cumulative_cases_beg_2"]]  # segment 2
+spline_slope_3 <- coef(spline)[["Cumulative_cases_beg_3"]]  # segment 3
 
 # Calculate growth factors pre- and post-knot
 growth_factor_1 <- spline_slope_1 + 1; growth_factor_1
 growth_factor_2 <- spline_slope_2 + 1; growth_factor_2
 growth_factor_3 <- spline_slope_3 + 1; growth_factor_3
 
-# Estimate SD of growth factor pre- and post-knot
-growth_factor_sd_1 <- cases_eng_100 %>% filter(Date <= knot_date_1) %>% 
-  summarise(sd(Growth_factor)) %>% as.numeric
-growth_factor_sd_2 <- cases_eng_100 %>% filter(Date > knot_date_1 & Date <= knot_date_2) %>% 
-  summarise(sd(Growth_factor)) %>% as.numeric
-growth_factor_sd_3 <- cases_eng_100 %>% filter(Date > knot_date_2) %>%
-  summarise(sd(Growth_factor)) %>% as.numeric
+# Record SD of growth factors (equal to standard error of estimated coefficients)
+growth_factor_sd_1 <- sqrt(diag(spline$var.coef))[["Cumulative_cases_beg_1"]]
+growth_factor_sd_2 <- sqrt(diag(spline$var.coef))[["Cumulative_cases_beg_2"]]
+growth_factor_sd_3 <- sqrt(diag(spline$var.coef))[["Cumulative_cases_beg_3"]]
 
 # ------------------------------------------------------------------------------
 # Estimate natural and counterfactual histories
@@ -152,9 +147,6 @@ n_runs <- 50000
 
 # Set dates to simulate
 dates <- seq.Date(from = date_100, to = date_T, by = 1)
-
-# Export descriptions of simulated knots
-write_csv(knots_simulation, path = paste0(out, "Hypothetical interventions.csv"))
 
 ## Create dataframes to store simulation outputs -------------------------------
 
@@ -344,6 +336,9 @@ write_csv(summary_cumulative_cases_end_sim, path = paste0(out, "Summary - cumula
 write_csv(summary_growth_factor_sim, path = paste0(out, "Summary - growth factors.csv"))
 write_csv(summary_deaths_sim, path = paste0(out, "Summary - deaths.csv"))
 
+# Export descriptions of simulated knots
+write_csv(knots_simulation, path = paste0(out, "Hypothetical interventions.csv"))
+
 # ------------------------------------------------------------------------------
 # Figures
 # ------------------------------------------------------------------------------
@@ -483,7 +478,7 @@ for (i in 1:nrow(knots_simulation)) {
                                   as.character(date_lockdown_i, format = "%d %b %C")), 
                    hjust = 0),
               color = "red4", size = 3, check_overlap = TRUE, show.legend = FALSE) +
-    geom_line(aes(group = Run, color = Run), size = 0.5, alpha = 0.08, show.legend = FALSE) +
+    geom_line(aes(group = Run, color = Run), size = 0.5, alpha = 0.04, show.legend = FALSE) +
     geom_line(data = summary_data_i, 
               aes(x = Date, y = Mean),
               color = "blue", size = 1) +
@@ -556,7 +551,7 @@ for (i in 1:nrow(knots_simulation)) {
                                   as.character(date_lockdown_i, format = "%d %b %C")), 
                    hjust = 0),
               color = "red4", size = 3, check_overlap = TRUE, show.legend = FALSE) +
-    geom_line(aes(group = Run, color = Run), size = 0.5, alpha = 0.1, show.legend = FALSE) +
+    geom_line(aes(group = Run, color = Run), size = 0.5, alpha = 0.04, show.legend = FALSE) +
     geom_line(data = summary_data_i, 
               aes(x = Date, y = Mean),
               color = "blue", size = 1) +
@@ -592,6 +587,12 @@ ggsave(paste0(out, "Plot - True vs counterfactual - cumulative cases.png"),
 
 ## Plot exponential growth -----------------------------------------------------
 
+# Calculate spline intercepts
+spline_int_1 <- 0  # segment 1 (slope fixed at 0)
+spline_int_2 <- (spline_int_1 + spline_slope_1*knot_1) - spline_slope_2*knot_1  # segment 2
+spline_int_3 <- (spline_int_2 + spline_slope_2*knot_2) - spline_slope_3*knot_2  # segment 3
+
+# Cumulative vs incident cases
 plot_exp_growth_cases <- ggplot(data = filter(cases_eng, Date <= date_T),
                                 aes(x = Cumulative_cases_beg, 
                                     y = Daily_cases)) +
