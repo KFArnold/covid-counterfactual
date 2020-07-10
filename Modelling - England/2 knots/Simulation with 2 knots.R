@@ -167,8 +167,8 @@ deaths_sim_k <- matrix(nrow = n_runs, ncol = 2,
                        dimnames = list(seq(from = 1, to = n_runs, by = 1),
                                        c("cfr_hosp_dod", "cfr_hosp_dor")))
 
-# Create lists to store simulation outputs
-data_sim <- list()  # daily cases, cumulative cases, growth factors
+# Create lists to store simulation outputs, if desired
+#data_sim <- list()  # daily cases, cumulative cases, growth factors
 #deaths_sim <- list()  # estimated deaths
 
 # Create lists to store summary outputs from all simulations
@@ -250,20 +250,20 @@ for (k in 1:n_sim) {
   # Print status update
   cat('\r', paste("Summarising data from simulation", k, "of", n_sim, "...    ", sep = " "))
   
-  # Record simulated data
-  ## Daily cases, cumulative cases, and growth factors:
-  daily_cases_sim <- daily_cases_sim_k %>% as_tibble(rownames = "Run") %>% 
-    gather(Date, Daily_cases, dimnames(daily_cases_sim_k)[[2]]) %>% 
-    mutate(Date = as.Date(Date)) %>% mutate(Run = as.numeric(Run))  # daily cases
-  cumulative_cases_end_sim <- cumulative_cases_end_sim_k %>% as_tibble(rownames = "Run") %>% 
-    gather(Date, Cumulative_cases_end, dimnames(daily_cases_sim_k)[[2]]) %>% 
-    mutate(Date = as.Date(Date)) %>% mutate(Run = as.numeric(Run))  # cumulative cases
-  growth_factor_sim <- growth_factor_sim_k %>% as_tibble(rownames = "Run") %>% 
-    gather(Date, Growth_factor, dimnames(daily_cases_sim_k)[[2]]) %>% 
-    mutate(Date = as.Date(Date)) %>% mutate(Run = as.numeric(Run))  # growth factor
-  data_sim[[k]] <- full_join(daily_cases_sim, cumulative_cases_end_sim) %>% 
-    full_join(., growth_factor_sim) %>% arrange(Run) %>% 
-    mutate(knots_simulation_k) %>% relocate(names(knots_simulation_k))
+  # Record simulated data, if desired
+  ### Daily cases, cumulative cases, and growth factors:
+  #daily_cases_sim <- daily_cases_sim_k %>% as_tibble(rownames = "Run") %>% 
+  #  gather(Date, Daily_cases, dimnames(daily_cases_sim_k)[[2]]) %>% 
+  #  mutate(Date = as.Date(Date)) %>% mutate(Run = as.numeric(Run))  # daily cases
+  #cumulative_cases_end_sim <- cumulative_cases_end_sim_k %>% as_tibble(rownames = "Run") %>% 
+  #  gather(Date, Cumulative_cases_end, dimnames(daily_cases_sim_k)[[2]]) %>% 
+  #  mutate(Date = as.Date(Date)) %>% mutate(Run = as.numeric(Run))  # cumulative cases
+  #growth_factor_sim <- growth_factor_sim_k %>% as_tibble(rownames = "Run") %>% 
+  #  gather(Date, Growth_factor, dimnames(daily_cases_sim_k)[[2]]) %>% 
+  #  mutate(Date = as.Date(Date)) %>% mutate(Run = as.numeric(Run))  # growth factor
+  #data_sim[[k]] <- full_join(daily_cases_sim, cumulative_cases_end_sim) %>% 
+  #  full_join(., growth_factor_sim) %>% arrange(Run) %>% 
+  #  mutate(knots_simulation_k) %>% relocate(names(knots_simulation_k))
   ### Estimated deaths:
   #deaths_sim[[k]] <- deaths_sim_k %>% as_tibble(rownames = "Run") %>%
   #  gather(CFR, Deaths, dimnames(deaths_sim_k)[[2]]) %>% 
@@ -299,8 +299,8 @@ for (k in 1:n_sim) {
 end <- Sys.time()
 end - start
 
-# Combine simulated data from all natural and counterfactual histories
-data_sim <- bind_rows(data_sim)  # daily cases, cumulative cases, growth factors
+# Combine simulated data from all natural and counterfactual histories, if desired
+#data_sim <- bind_rows(data_sim)  # daily cases, cumulative cases, growth factors
 #deaths_sim <- bind_rows(deaths_sim)  # deaths
 
 # Combine summary results from all natural and counterfactual histories 
@@ -343,102 +343,19 @@ write_csv(knots_simulation, path = paste0(out, "Hypothetical interventions.csv")
 # Figures
 # ------------------------------------------------------------------------------
 
-# Select random sample of 500 simulation runs to plot
-set.seed(51)
-select <- as.factor(sample(x = seq(1, n_runs), size = 500, replace = FALSE))
-data_sim_sample <- data_sim[data_sim$Run %in% select, ]
+# Create figures of incident and cumulative cases under natural vs counterfactual histories
 
-# Convert columns to factors
-# sapply(data_sim_sample, class); sapply(summary_daily_cases_sim, class)
-data_sim_sample <- data_sim_sample %>% mutate_at(vars(Simulation, Run), as.factor)
-summary_daily_cases_sim <- summary_daily_cases_sim %>% mutate_at(vars(Simulation), as.factor)
-summary_cumulative_cases_end_sim <- summary_cumulative_cases_end_sim %>% mutate_at(vars(Simulation), as.factor)
+# Import files required for figures, if necessary
+#knots_simulation <- read_csv(paste0(out, "Hypothetical interventions.csv"))
+#summary_daily_cases_sim <- read_csv(paste0(out, "Summary - daily cases.csv"))
+#summary_cumulative_cases_end_sim <- read_csv(paste0(out, "Summary - cumulative cases.csv"))
 
-## True incident and cumulative cases against modelled means -------------------
+## Incident cases --------------------------------------------------------------
 
-# Incident cases
-plot_cases_inc <- ggplot(data = cases_eng, 
-                         aes(x = Date, y = Daily_cases)) +
-  theme_minimal() +
-  theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
-  labs(title = "Incident lab-confirmed cases of Covid-19 in England by date of testing",
-       subtitle = " ",
-       caption = "Data from https://coronavirus.data.gov.uk.") +
-  geom_col(alpha = 0.4) +
-  geom_line(data = filter(summary_daily_cases_sim, Simulation == "Natural history"), 
-            aes(x = Date, y = Mean), color = "blue", inherit.aes = FALSE) +
-  geom_vline(xintercept = date_sd, col = "red") +
-  geom_text(aes(x = date_sd - 1, y = 3000, 
-                label = paste0("Date of social distancing:\n", 
-                               as.character(date_sd, format = "%d %b %C")), 
-                hjust = 1, color = "red"),
-            check_overlap = TRUE, show.legend = FALSE) +
-  geom_vline(xintercept = date_lockdown, col = "red") +
-  geom_text(aes(x = date_lockdown + 1, y = 5000, 
-                label = paste0("Date of lockdown:\n", 
-                               as.character(date_lockdown, format = "%d %b %C")), 
-                hjust = 0, color = "red"),
-            check_overlap = TRUE, show.legend = FALSE) +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
-  scale_x_date(name = "Date", 
-               limits = c(date_0, date_T), 
-               date_breaks = "1 week", 
-               date_labels = "%d %b %C",
-               expand = expansion(mult = c(0, 0))) +
-  scale_y_continuous(name = "Number of lab-confirmed cases",
-                     limits = c(0, 6000),
-                     breaks = seq(0, 6000, 1000),
-                     expand = expansion(mult = c(0.01, 0.01)))
-#plot_cases_inc
-
-# Cumulative cases
-plot_cases_cum <- ggplot(data = cases_eng, 
-                         aes(x = Date, y = Cumulative_cases_end)) +
-  theme_minimal() +
-  theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
-  labs(title = "Cumulative lab-confirmed cases of Covid-19 in England by date of testing",
-       subtitle = " ",
-       caption = "Data from https://coronavirus.data.gov.uk.") +
-  geom_col(alpha = 0.4) +
-  geom_line(data = filter(summary_cumulative_cases_end_sim, Simulation == "Natural history"), 
-            aes(x = Date, y = Mean), 
-            color = "blue", inherit.aes = FALSE) +
-  geom_vline(xintercept = date_sd, col = "red") +
-  geom_text(aes(x = date_sd - 1, y = 80000, 
-                label = paste0("Date of social distancing:\n", 
-                               as.character(date_sd, format = "%d %b %C")), 
-                hjust = 1, color = "red"),
-            check_overlap = TRUE, show.legend = FALSE) +
-  geom_vline(xintercept = date_lockdown, col = "red") +
-  geom_text(aes(x = date_lockdown + 1, y = 130000, 
-                label = paste0("Date of lockdown:\n", 
-                               as.character(date_lockdown, format = "%d %b %C")), 
-                hjust = 0, color = "red"),
-            check_overlap = TRUE, show.legend = FALSE) +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
-  scale_x_date(name = "Date", 
-               limits = c(date_0, date_T), 
-               date_breaks = "1 week", 
-               date_labels = "%d %b %C",
-               expand = expansion(mult = c(0, 0))) +
-  scale_y_continuous(name = "Number of lab-confirmed cases",
-                     limits = c(0, 160000),
-                     breaks = seq(0, 160000, 20000),
-                     labels = comma_format(accuracy = 1),
-                     expand = expansion(mult = c(0, 0)))
-#plot_cases_cum
-
-# Save plots
-g <- ggarrange(plot_cases_inc, plot_cases_cum, nrow = 2)
-ggsave(paste0(out, "Plot - True incident and cumulative cases vs modelled.png"),
-       plot = g, width = 8, height = 10)
-
-## Natural vs counterfactual histories -----------------------------------------
-
-### Incident cases -------------------------------------------------------------
-
+# Create list for storing figures
 plot_cases_inc_sim <- list()
 
+# Figures
 for (i in 1:nrow(knots_simulation)) {
   
   # Define as natural or counterfactual history
@@ -454,18 +371,17 @@ for (i in 1:nrow(knots_simulation)) {
   date_lockdown_i <- knots_simulation[[i, "Date_lockdown"]]
   
   # Filter data
-  data_i <- filter(data_sim_sample, 
-                   Simulation == simulation_i & Description == description_i)
   summary_data_i <- filter(summary_daily_cases_sim, 
                            Simulation == simulation_i & Description == description_i)
   
   # Create plot
-  p <- ggplot(data = data_i, aes(x = Date, y = Daily_cases)) +
+  p <- ggplot(data = summary_data_i, aes(x = Date, y = Mean)) +
     theme_minimal() +
     theme(plot.margin = unit(c(0.5, 1, 0.5, 1), "cm")) +
     labs(title = simulation_i,
          subtitle = description_i) +
-    geom_col(data = filter(cases_eng, Date <= date_T), alpha = 0.4) +
+    geom_col(data = filter(summary_daily_cases_sim, 
+                           Simulation == "True"), aes(x = Date, y = Mean), alpha = 0.4) +
     geom_vline(xintercept = date_sd_i, col = "red4") +
     geom_text(aes_(x = date_sd_i - 1, y = 5000, 
                    label = paste0("Date of\nsocial distancing:\n", 
@@ -478,10 +394,9 @@ for (i in 1:nrow(knots_simulation)) {
                                   as.character(date_lockdown_i, format = "%d %b %C")), 
                    hjust = 0),
               color = "red4", size = 3, check_overlap = TRUE, show.legend = FALSE) +
-    geom_line(aes(group = Run, color = Run), size = 0.5, alpha = 0.04, show.legend = FALSE) +
-    geom_line(data = summary_data_i, 
-              aes(x = Date, y = Mean),
-              color = "blue", size = 1) +
+    geom_line(color = "navyblue", size = 1) +
+    geom_ribbon(aes(ymin = C_025, ymax = C_975),
+                fill = "navyblue", alpha = 0.25) +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
     scale_x_date(name = "Date", 
                  limits = c(date_0, date_T + 7), 
@@ -499,7 +414,6 @@ for (i in 1:nrow(knots_simulation)) {
   
 }
 
-
 # Save plots
 p <- ggarrange(plotlist = plot_cases_inc_sim, nrow = length(plot_cases_inc_sim))
 g <- annotate_figure(p, top = text_grob("Incident lab-confirmed cases of Covid-19 in England", size = 16),
@@ -507,11 +421,12 @@ g <- annotate_figure(p, top = text_grob("Incident lab-confirmed cases of Covid-1
 ggsave(paste0(out, "Plot - True vs counterfactual - incident cases.png"),
        plot = g, width = 6, height = 4*length(plot_cases_inc_sim))
 
+## Cumulative cases ------------------------------------------------------------
 
-### Cumulative cases -----------------------------------------------------------
-
+# Create list for storing figures
 plot_cases_cum_sim <- list()
 
+# Figures
 for (i in 1:nrow(knots_simulation)) {
   
   # Define as natural or counterfactual history
@@ -527,18 +442,17 @@ for (i in 1:nrow(knots_simulation)) {
   date_lockdown_i <- knots_simulation[[i, "Date_lockdown"]]
   
   # Filter data
-  data_i <- filter(data_sim_sample, 
-                   Simulation == simulation_i & Description == description_i)
   summary_data_i <- filter(summary_cumulative_cases_end_sim, 
                            Simulation == simulation_i & Description == description_i)
   
   # Create plot
-  p <- ggplot(data = data_i, aes(x = Date, y = Cumulative_cases_end)) +
+  p <- ggplot(data = summary_data_i, aes(x = Date, y = Mean)) +
     theme_minimal() +
     theme(plot.margin = unit(c(0.5, 1, 0.5, 1), "cm")) +
     labs(title = simulation_i,
          subtitle = description_i) +
-    geom_col(data = filter(cases_eng, Date <= date_T), alpha = 0.4) +
+    geom_col(data = filter(summary_cumulative_cases_end_sim, 
+                           Simulation == "True"), aes(x = Date, y = Mean), alpha = 0.4) +
     geom_vline(xintercept = date_sd_i, col = "red4") +
     geom_text(aes_(x = date_sd_i - 1, y = 100000, 
                    label = paste0("Date of\nsocial distancing:\n", 
@@ -551,15 +465,16 @@ for (i in 1:nrow(knots_simulation)) {
                                   as.character(date_lockdown_i, format = "%d %b %C")), 
                    hjust = 0),
               color = "red4", size = 3, check_overlap = TRUE, show.legend = FALSE) +
-    geom_line(aes(group = Run, color = Run), size = 0.5, alpha = 0.04, show.legend = FALSE) +
     geom_line(data = summary_data_i, 
               aes(x = Date, y = Mean),
-              color = "blue", size = 1) +
+              color = "navyblue", size = 1) +
+    geom_ribbon(aes(ymin = C_025, ymax = C_975),
+                fill = "navyblue", alpha = 0.25) +
     geom_text(data = summary_data_i, 
               aes(x = Date, y = Mean,
                   label = ifelse(Date == date_T, formatC(Mean, 
                                                          format = "f", big.mark = ",", digits = 0), "")),
-              vjust = -1, size = 3, color = "blue", inherit.aes = FALSE) +
+              vjust = -1, size = 3, color = "navyblue", inherit.aes = FALSE) +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
     scale_x_date(name = "Date", 
                  limits = c(date_0, date_T + 7), 
@@ -584,72 +499,3 @@ g <- annotate_figure(p, top = text_grob("Cumulative lab-confirmed cases of Covid
                      bottom = text_grob("Data from https://coronavirus.data.gov.uk.", size = 10))
 ggsave(paste0(out, "Plot - True vs counterfactual - cumulative cases.png"),
        plot = g, width = 6, height = 4*length(plot_cases_cum_sim))
-
-## Plot exponential growth -----------------------------------------------------
-
-# Calculate spline intercepts
-spline_int_1 <- 0  # segment 1 (slope fixed at 0)
-spline_int_2 <- (spline_int_1 + spline_slope_1*knot_1) - spline_slope_2*knot_1  # segment 2
-spline_int_3 <- (spline_int_2 + spline_slope_2*knot_2) - spline_slope_3*knot_2  # segment 3
-
-# Cumulative vs incident cases
-plot_exp_growth_cases <- ggplot(data = filter(cases_eng, Date <= date_T),
-                                aes(x = Cumulative_cases_beg, 
-                                    y = Daily_cases)) +
-  theme_minimal() +
-  theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
-  labs(title = "Exponential growth of Covid-19 cases in England",
-       subtitle = "Cumulative versus incident cases",
-       caption = paste0("Data from https://coronavirus.data.gov.uk,\n up to ", 
-                        as.character(date_T, format = "%d %b %C"), ".")) +
-  geom_path() +
-  geom_point(size = 1) +
-  geom_segment(aes(x = min(cases_eng_100$Cumulative_cases_beg), xend = knot_1,
-                   y = spline_int_1 + spline_slope_1*min(cases_eng_100$Cumulative_cases_beg), 
-                   yend = spline_int_1 + spline_slope_1*knot_1),
-               color = "red") + 
-  geom_segment(aes(x = knot_1, xend = knot_2,
-                   y = spline_int_2 + spline_slope_2*knot_1, 
-                   yend = spline_int_2 + spline_slope_2*knot_2),
-               color = "orange") +
-  geom_segment(aes(x = knot_2, xend = max(cases_eng_100$Cumulative_cases_beg),
-                   y = spline_int_3 + spline_slope_3*knot_2, 
-                   yend = spline_int_3 + spline_slope_3*max(cases_eng_100$Cumulative_cases_beg)),
-               color = "green") +
-  geom_point(data = subset(cases_eng, Date == date_sd),
-             size = 3, color = "blue", shape = 17) +
-  geom_text(data = subset(cases_eng, Date == date_sd), color = "blue",
-            label = paste0("Date of social distancing:\n", as.character(date_sd, format = "%d %b")),
-            hjust = 0, vjust = 1, position = position_nudge(x = 2000), size = 3) +
-  geom_point(data = subset(cases_eng, Date == date_lockdown), 
-             size = 3, color = "blue", shape = 17) +
-  geom_text(data = subset(cases_eng, Date == date_lockdown), color = "blue",
-            label = paste0("Date of lockdown:\n", as.character(date_lockdown, format = "%d %b")),
-            hjust = 0, vjust = 1, position = position_nudge(x = 2000), size = 3) +
-  geom_point(data = subset(cases_eng, Date == knot_date_1), 
-             size = 3, shape = 15) +
-  geom_text(data = subset(cases_eng, Date == knot_date_1), 
-            label = paste0(as.character(knot_date_1, format = "%d %b")),
-            hjust = 0.5, vjust = 0, position = position_nudge(y = 200), size = 3) +
-  geom_point(data = subset(cases_eng, Date == knot_date_2), 
-             size = 3, shape = 15) +
-  geom_text(data = subset(cases_eng, Date == knot_date_2), 
-            label = paste0(as.character(knot_date_2, format = "%d %b")),
-            hjust = 0.5, vjust = 1, position = position_nudge(y = -200), size = 3) +
-  scale_x_continuous(name = "Cumulative number of lab-confirmed cases",
-                     limits = c(0, 160000),
-                     breaks = seq(0, 160000, 20000),
-                     labels = comma_format(accuracy = 1),
-                     expand = expansion(mult = c(0, 0))) + 
-  scale_y_continuous(name = "New daily number of lab-confirmed cases",
-                     limits = c(0, 6000),
-                     breaks = seq(0, 6000, 1000),
-                     labels = comma_format(accuracy = 1),
-                     expand = expansion(mult = c(0, 0)))
-#plot_exp_growth_cases
-
-# Save plot
-ggsave(paste0(out, "Plot - Cumulative vs incident cases - normal scale.png"),
-       plot = plot_exp_growth_cases, width = 6, height = 6)
-
-
