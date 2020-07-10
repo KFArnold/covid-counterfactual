@@ -36,7 +36,7 @@ names(nhseng_data_deaths_hosp_dod) <- str_replace_all(names(nhseng_data_deaths_h
 names(ons_data_deaths_all_dod) <- str_replace_all(names(ons_data_deaths_all_dod), 
                                                   c(" " = "_", "-" = "_"))
 
-# Copy datasets
+# Copy datasets and remove originals
 cases <- govuk_data_cases %>% 
   select(c(Area_name, Area_code, Area_type, Date = Specimen_date, 
            Daily_cases = Daily_lab_confirmed_cases, Cumulative_cases = Cumulative_lab_confirmed_cases))
@@ -48,6 +48,7 @@ deaths_hosp_dod <- nhseng_data_deaths_hosp_dod %>%
          Cumulative_deaths = Cumulative_hospital_deaths)
 deaths_all_dod <- ons_data_deaths_all_dod %>% 
   select(Area_name, Date = Death_date, Cumulative_deaths, Daily_deaths)
+rm(govuk_data_cases, govuk_data_deaths_hosp_dor, nhseng_data_deaths_hosp_dod, ons_data_deaths_all_dod)
 
 # View data
 # cases; deaths_hosp_dor; deaths_hosp_dod; deaths_all_dod
@@ -77,11 +78,12 @@ deaths_hosp_dor <- deaths_hosp_dor %>% filter(Date <= date_max)
 deaths_hosp_dod <- deaths_hosp_dod %>% filter(Date <= date_max)
 deaths_all_dod <- deaths_all_dod %>% filter(Date <= date_max)
 
-# Retain only country-level data for England
+# Retain only country-level data for England and remove other data files
 cases_eng <- filter(cases, Area_name == "England")
 deaths_hosp_dor_eng <- filter(deaths_hosp_dor, Area_name == "England")
 deaths_hosp_dod_eng <- filter(deaths_hosp_dod, Area_name == "England")
 deaths_all_dod_eng <- filter(deaths_all_dod, Area_name == "England")
+rm(cases, deaths_hosp_dor, deaths_hosp_dod, deaths_all_dod)
 
 # Calculate cumulative cases at beginning of each day
 # (current counts represent cases at end of each day)
@@ -101,9 +103,10 @@ for (t in 2:nrow(cases_eng)) {
   growth_factor <- (inc_t / inc_tminus1)
   cases_eng[t, "Growth_factor"] <- growth_factor
 }
+# Remove loop variables
+rm(t, inc_tminus1, inc_t, growth_factor)
 
-
-# Calculate date at which cumulative cases in England first exceeded 100
+# Calculate first full date at which cumulative cases in England exceeded 100
 date_100 <- filter(cases_eng, Cumulative_cases_beg >= 100)$Date[1]  # 3 Mar
 
 # Create copy of dataset where cumulative cases > 100
@@ -143,3 +146,5 @@ for (i in 1:nrow(deaths_hosp_dor_eng)) {
 cfr_hosp_dor <- tail(deaths_hosp_dor_eng$Case_fatality_rate, n = 1); cfr_hosp_dor
 #plot(deaths_hosp_dor_eng$Date, deaths_hosp_dor_eng$Case_fatality_rate)
 
+# Remove loop variables
+rm(i, date, deaths_i, cases_i, cfr_i)
