@@ -87,16 +87,16 @@ plot_cases_inc <- ggplot(data = cases_eng,
        subtitle = " ",
        caption = "Data from https://coronavirus.data.gov.uk. \nMost recent 5 days omitted due to reporting delays.") +
   geom_col() +
-  geom_vline(xintercept = date_sd, col = "red") +
+  geom_vline(xintercept = date_sd, col = "red4") +
   geom_text(aes(x = date_sd - 1, y = 3000, 
                 label = paste0("Date of social distancing:\n", as.character(date_sd, format = "%d %b %C")), 
-                hjust = 1, color = "red"),
-            check_overlap = TRUE, show.legend = FALSE) +
-  geom_vline(xintercept = date_lockdown, col = "red") +
+                hjust = 1),
+            color = "red4", check_overlap = TRUE, show.legend = FALSE) +
+  geom_vline(xintercept = date_lockdown, col = "red4") +
   geom_text(aes (x = date_lockdown + 1, y = 5000, 
                  label = paste0("Date of lockdown:\n", as.character(date_lockdown, format = "%d %b %C")),
-                 hjust = 0, color = "red"),
-            check_overlap = TRUE, show.legend = FALSE) +
+                 hjust = 0),
+            color = "red4", check_overlap = TRUE, show.legend = FALSE) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
   scale_x_date(name = "Date", 
                limits = c(date_0, date_max + 5), 
@@ -118,16 +118,16 @@ plot_deaths_hosp_inc <- ggplot(data = deaths_hosp_dor_eng,
        subtitle = " ",
        caption = "Data from https://www.england.nhs.uk/. \nMost recent 5 days omitted due to reporting delays.") +
   geom_col() +
-  geom_vline(xintercept = date_sd, col = "red") +
+  geom_vline(xintercept = date_sd, col = "red4") +
   geom_text(aes(x = date_sd - 1, y = 3000, 
                 label = paste0("Date of social distancing:\n", as.character(date_sd, format = "%d %b %C")), 
-                hjust = 1, color = "red"),
-            check_overlap = TRUE, show.legend = FALSE) +
-  geom_vline(xintercept = date_lockdown, col = "red") +
+                hjust = 1),
+            color = "red4", check_overlap = TRUE, show.legend = FALSE) +
+  geom_vline(xintercept = date_lockdown, col = "red4") +
   geom_text(aes (x = date_lockdown + 1, y = 5000, 
                  label = paste0("Date of lockdown:\n", as.character(date_lockdown, format = "%d %b %C")),
-                 hjust = 0, color = "red"),
-            check_overlap = TRUE, show.legend = FALSE) +
+                 hjust = 0),
+            color = "red4", check_overlap = TRUE, show.legend = FALSE) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
   scale_x_date(name = "Date", 
                limits = c(date_0, date_max + 5), 
@@ -148,16 +148,16 @@ plot_deaths_all_inc <- ggplot(data = deaths_all_dod_eng,
        subtitle = " ",
        caption = "Data from https://www.ons.gov.uk/.") +
   geom_col() +
-  geom_vline(xintercept = date_sd, col = "red") +
+  geom_vline(xintercept = date_sd, col = "red4") +
   geom_text(aes(x = date_sd - 1, y = 3000, 
                 label = paste0("Date of social distancing:\n", as.character(date_sd, format = "%d %b %C")), 
-                hjust = 1, color = "red"),
-            check_overlap = TRUE, show.legend = FALSE) +
-  geom_vline(xintercept = date_lockdown, col = "red") +
+                hjust = 1),
+            color = "red4", check_overlap = TRUE, show.legend = FALSE) +
+  geom_vline(xintercept = date_lockdown, col = "red4") +
   geom_text(aes (x = date_lockdown + 1, y = 5000, 
                  label = paste0("Date of lockdown:\n", as.character(date_lockdown, format = "%d %b %C")),
-                 hjust = 0, color = "red"),
-            check_overlap = TRUE, show.legend = FALSE) +
+                 hjust = 0),
+            color = "red4", check_overlap = TRUE, show.legend = FALSE) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
   scale_x_date(name = "Date", 
                limits = c(date_0, date_max + 5), 
@@ -186,16 +186,16 @@ plot_cases_cum <- ggplot(data = cases_eng,
        subtitle = " ",
        caption = "Data from https://coronavirus.data.gov.uk. \nMost recent 5 days omitted due to reporting delays.") +
   geom_col() +
-  geom_vline(xintercept = date_sd, col = "red") +
+  geom_vline(xintercept = date_sd, col = "red4") +
   geom_text(aes(x = date_sd - 1, y = 100000, 
                 label = paste0("Date of social distancing:\n", as.character(date_sd, format = "%d %b %C")), 
-                hjust = 1, color = "red"),
-            check_overlap = TRUE, show.legend = FALSE) +
-  geom_vline(xintercept = date_lockdown, col = "red") +
+                hjust = 1),
+            color = "red4", check_overlap = TRUE, show.legend = FALSE) +
+  geom_vline(xintercept = date_lockdown, col = "red4") +
   geom_text(aes(x = date_lockdown + 1, y = 160000, 
                 label = paste0("Date of lockdown:\n", as.character(date_lockdown, format = "%d %b %C")),
-                hjust = 0, color = "red"),
-            check_overlap = TRUE, show.legend = FALSE) +
+                hjust = 0),
+            color = "red4", check_overlap = TRUE, show.legend = FALSE) +
   geom_text(data = cases_eng, 
             aes(label = ifelse(Date == date_max, formatC(Cumulative_cases_end, 
                                                        format = "f", big.mark = ",", digits = 0), "")),
@@ -222,16 +222,16 @@ plot_deaths_hosp_cum <- ggplot(data = deaths_hosp_dor_eng,
        subtitle = " ", 
        caption = "Data from https://www.england.nhs.uk/. \nMost recent 5 days omitted due to reporting delays.") +
   geom_col() +
-  geom_vline(xintercept = date_sd, col = "red") +
+  geom_vline(xintercept = date_sd, col = "red4") +
   geom_text(aes(x = date_sd - 1, y = 100000, 
                 label = paste0("Date of social distancing:\n", as.character(date_sd, format = "%d %b %C")), 
-                hjust = 1, color = "red"),
-            check_overlap = TRUE, show.legend = FALSE) +
-  geom_vline(xintercept = date_lockdown, col = "red") +
+                hjust = 1),
+            color = "red4", check_overlap = TRUE, show.legend = FALSE) +
+  geom_vline(xintercept = date_lockdown, col = "red4") +
   geom_text(aes(x = date_lockdown + 1, y = 160000, 
                 label = paste0("Date of lockdown:\n", as.character(date_lockdown, format = "%d %b %C")),
-                hjust = 0, color = "red"),
-            check_overlap = TRUE, show.legend = FALSE) +
+                hjust = 0),
+            color = "red4", check_overlap = TRUE, show.legend = FALSE) +
   geom_text(data = deaths_hosp_dor_eng, 
             aes(label = ifelse(Date == date_max, formatC(Cumulative_deaths, 
                                                        format = "f", big.mark = ",", digits = 0), "")),
@@ -257,16 +257,16 @@ plot_deaths_all_cum <- ggplot(data = deaths_all_dod_eng,
        subtitle = " ", 
        caption = "Data from https://www.ons.gov.uk/.") +
   geom_col() +
-  geom_vline(xintercept = date_sd, col = "red") +
+  geom_vline(xintercept = date_sd, col = "red4") +
   geom_text(aes(x = date_sd - 1, y = 100000, 
                 label = paste0("Date of social distancing:\n", as.character(date_sd, format = "%d %b %C")), 
-                hjust = 1, color = "red"),
-            check_overlap = TRUE, show.legend = FALSE) +
-  geom_vline(xintercept = date_lockdown, col = "red") +
+                hjust = 1),
+            color = "red4", check_overlap = TRUE, show.legend = FALSE) +
+  geom_vline(xintercept = date_lockdown, col = "red4") +
   geom_text(aes(x = date_lockdown + 1, y = 160000, 
                 label = paste0("Date of lockdown:\n", as.character(date_lockdown, format = "%d %b %C")),
-                hjust = 0, color = "red"),
-            check_overlap = TRUE, show.legend = FALSE) +
+                hjust = 0),
+            color = "red4", check_overlap = TRUE, show.legend = FALSE) +
   geom_text(data = deaths_all_dod_eng, 
             aes(label = ifelse(Date == max(Date), 
                                formatC(Cumulative_deaths, 
