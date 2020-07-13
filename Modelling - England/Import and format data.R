@@ -11,7 +11,7 @@
 
 # Load required packages
 packrat::restore()
-library(tidyverse)
+library(tidyverse); library(caTools)
 
 # ------------------------------------------------------------------------------
 # Import and format data
@@ -106,8 +106,22 @@ for (t in 2:nrow(cases_eng)) {
 # Remove loop variables
 rm(t, inc_tminus1, inc_t, growth_factor)
 
+# Calculate 7-day moving averages of daily and cumulative cases and deaths
+cases_eng <- cases_eng %>% mutate(Daily_cases_MA7 = round(runmean(Daily_cases, k = 7, alg = "C", endrule = "mean"), 3),
+                                  Cumulative_cases_end_MA7 = round(runmean(Cumulative_cases_end, k = 7, alg = "C", endrule = "mean"), 3))
+deaths_hosp_dor_eng <- deaths_hosp_dor_eng %>% mutate(Daily_deaths_MA7 = round(runmean(Daily_deaths, k = 7, alg = "C", endrule = "mean"), 3),
+                                                      Cumulative_deaths_MA7 = round(runmean(Cumulative_deaths, k = 7, alg = "C", endrule = "mean"), 3))
+deaths_hosp_dod_eng <- deaths_hosp_dod_eng %>% mutate(Daily_deaths_MA7 = round(runmean(Daily_deaths, k = 7, alg = "C", endrule = "mean"), 3),
+                                                      Cumulative_deaths_MA7 = round(runmean(Cumulative_deaths, k = 7, alg = "C", endrule = "mean"), 3))
+deaths_all_dod_eng <- deaths_all_dod_eng %>% mutate(Daily_deaths_MA7 = round(runmean(Daily_deaths, k = 7, alg = "C", endrule = "mean"), 3),
+                                                    Cumulative_deaths_MA7 = round(runmean(Cumulative_deaths, k = 7, alg = "C", endrule = "mean"), 3))
+
 # Calculate first full date at which cumulative cases in England exceeded 100
-date_100 <- filter(cases_eng, Cumulative_cases_beg >= 100)$Date[1]  # 3 Mar
+date_100 <- filter(cases_eng, Cumulative_cases_beg >= 100)$Date[1]
+
+# Create variable for number of days since date_100
+cases_eng <- cases_eng %>% mutate(Days_since_date_100 = as.numeric(Date - date_100)) %>%
+  relocate(Days_since_date_100, .after = Date)
 
 # Create copy of dataset where cumulative cases > 100
 cases_eng_100 <- filter(cases_eng, Date >= date_100 & Date <= date_T)
