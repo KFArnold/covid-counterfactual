@@ -99,9 +99,9 @@ for (i in 1:nrow(knots)) {
                   xreg = as.matrix(data[, 2:4]), include.constant = FALSE)
   
   # Record model parameters
-  spline_slope_1 <- as.numeric(coef(spline)["Cumulative_cases_beg_1"])  # slope of segement 1
-  spline_slope_2 <- as.numeric(coef(spline)["Cumulative_cases_beg_2"])  # slope of segement 2
-  spline_slope_3 <- as.numeric(coef(spline)["Cumulative_cases_beg_3"])  # slope of segement 3
+  spline_slope_1 <- as.numeric(coef(spline)["Cumulative_cases_beg_1"])  # slope of segment 1
+  spline_slope_2 <- as.numeric(coef(spline)["Cumulative_cases_beg_2"])  # slope of segment 2
+  spline_slope_3 <- as.numeric(coef(spline)["Cumulative_cases_beg_3"])  # slope of segment 3
   
   # Calculate and record growth factors
   knots[[i, "Growth_factor_1"]] <- growth_factor_1 <- spline_slope_1 + 1
@@ -142,21 +142,17 @@ for (i in 1:nrow(knots)) {
   ## (1) For true vs predicted incident cases
   true_inc <- cases_eng_100$Daily_cases
   pred_inc <- daily_cases_sim[1, -1]
-  #pred_inc <- filter(sim_data, Date >= date_100)$Daily_cases
   knots[i, "RMSE_inc"] <- rmse(true_inc, pred_inc)
   ## (2) For true vs predicted cumulative cases
   true_cum <- cases_eng_100$Cumulative_cases_end
   pred_cum <- cumulative_cases_end_sim[1, -1]
-  #pred_cum <- filter(sim_data, Date >= date_100)$Cumulative_cases_end
   knots[i, "RMSE_cum"] <- rmse(true_cum, pred_cum)
   
   # Calculate absolute difference between cumulative cases at end of simulation vs true
   true_cum_end <- filter(cases_eng_100, Date == date_T)$Cumulative_cases_end
   pred_cum_end <- cumulative_cases_end_sim[1, ncol(cumulative_cases_end_sim)]
   knots[i, "Diff_cum_end"] <- true_cum_end - pred_cum_end
-  #pred_cum_end <- filter(sim_data, Date == date_T)$Cumulative_cases_end
-  #knots[i, "Abs_diff_cum_end"] <- abs(true_cum_end - pred_cum_end)
-  
+
   # Display progress 
   cat('\r', paste(round((i / nrow(knots) * 100), 0), 
                   "% done    ", sep = " "))
@@ -168,9 +164,6 @@ knots1 <- knots %>% arrange(RMSE_inc) %>% head(10)
 
 # Calculate knots with lowest RMSE_cum
 knots2 <- knots %>% arrange(RMSE_cum) %>% head(10)
-
-# Calculate knots with lowest absolute difference in cumulative cases at end
-knots3 <- knots %>% arrange(abs(Diff_cum_end)) %>% head(10)
 
 # Keep matches between three datsets
 knots_best <- knots1[(knots1$Knot_date_1 %in% knots2$Knot_date_1 & knots1$Knot_date_1 %in% knots3$Knot_date_1) & 
