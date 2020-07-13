@@ -86,7 +86,8 @@ plot_cases_inc <- ggplot(data = cases_eng,
   labs(title = "Incident lab-confirmed cases of Covid-19 in England by date of testing",
        subtitle = " ",
        caption = "Data from https://coronavirus.data.gov.uk. \nMost recent 5 days omitted due to reporting delays.") +
-  geom_col() +
+  geom_col(alpha = 0.5) +
+  geom_line(aes(x = Date, y = Daily_cases_MA7), col = "navyblue") +
   geom_vline(xintercept = date_sd, col = "red4") +
   geom_text(aes(x = date_sd - 1, y = 3000, 
                 label = paste0("Date of social distancing:\n", as.character(date_sd, format = "%d %b %C")), 
@@ -117,7 +118,8 @@ plot_deaths_hosp_inc <- ggplot(data = deaths_hosp_dor_eng,
   labs(title = "Incident hospital deaths from Covid-19 in England by date of reporting",
        subtitle = " ",
        caption = "Data from https://www.england.nhs.uk/. \nMost recent 5 days omitted due to reporting delays.") +
-  geom_col() +
+  geom_col(alpha = 0.5) +
+  geom_line(aes(x = Date, y = Daily_deaths_MA7), col = "navyblue") +
   geom_vline(xintercept = date_sd, col = "red4") +
   geom_text(aes(x = date_sd - 1, y = 3000, 
                 label = paste0("Date of social distancing:\n", as.character(date_sd, format = "%d %b %C")), 
@@ -147,7 +149,8 @@ plot_deaths_all_inc <- ggplot(data = deaths_all_dod_eng,
   labs(title = "Incident deaths from Covid-19 in England by date of death",
        subtitle = " ",
        caption = "Data from https://www.ons.gov.uk/.") +
-  geom_col() +
+  geom_col(alpha = 0.5) +
+  geom_line(aes(x = Date, y = Daily_deaths_MA7), col = "navyblue") +
   geom_vline(xintercept = date_sd, col = "red4") +
   geom_text(aes(x = date_sd - 1, y = 3000, 
                 label = paste0("Date of social distancing:\n", as.character(date_sd, format = "%d %b %C")), 
@@ -185,7 +188,8 @@ plot_cases_cum <- ggplot(data = cases_eng,
   labs(title = "Cumulative lab-confirmed cases of Covid-19 in England by date of testing",
        subtitle = " ",
        caption = "Data from https://coronavirus.data.gov.uk. \nMost recent 5 days omitted due to reporting delays.") +
-  geom_col() +
+  geom_col(alpha = 0.5) +
+  #geom_line(aes(x = Date, y = Cumulative_cases_end_MA7), col = "navyblue") +
   geom_vline(xintercept = date_sd, col = "red4") +
   geom_text(aes(x = date_sd - 1, y = 100000, 
                 label = paste0("Date of social distancing:\n", as.character(date_sd, format = "%d %b %C")), 
@@ -221,7 +225,8 @@ plot_deaths_hosp_cum <- ggplot(data = deaths_hosp_dor_eng,
   labs(title = "Cumulative hospital dealths from Covid-19 in England by date of reporting",
        subtitle = " ", 
        caption = "Data from https://www.england.nhs.uk/. \nMost recent 5 days omitted due to reporting delays.") +
-  geom_col() +
+  geom_col(alpha = 0.5) +
+  #geom_line(aes(x = Date, y = Cumulative_deaths_MA7), col = "navyblue") +
   geom_vline(xintercept = date_sd, col = "red4") +
   geom_text(aes(x = date_sd - 1, y = 100000, 
                 label = paste0("Date of social distancing:\n", as.character(date_sd, format = "%d %b %C")), 
@@ -256,7 +261,8 @@ plot_deaths_all_cum <- ggplot(data = deaths_all_dod_eng,
   labs(title = "Cumulative dealths from Covid-19 in England by date of death",
        subtitle = " ", 
        caption = "Data from https://www.ons.gov.uk/.") +
-  geom_col() +
+  geom_col(alpha = 0.5) +
+  #geom_line(aes(x = Date, y = Cumulative_deaths_MA7), col = "navyblue") +
   geom_vline(xintercept = date_sd, col = "red4") +
   geom_text(aes(x = date_sd - 1, y = 100000, 
                 label = paste0("Date of social distancing:\n", as.character(date_sd, format = "%d %b %C")), 
