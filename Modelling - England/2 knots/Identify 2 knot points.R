@@ -87,16 +87,18 @@ for (i in 1:nrow(knots)) {
   knot_1 <- subset(cases_eng_100, Date == knot_date_1)$Cumulative_cases_beg
   knot_2 <- subset(cases_eng_100, Date == knot_date_2)$Cumulative_cases_beg
   
-  # Create dataframe for fitting manual splines
+  # Create time series object for daily cases
+  cases_ts <- ts(data = cases_eng_100$Daily_cases, frequency = 7)
+  
+  # Create dataframe of covariates (cumulative cases) for fitting manual Arima splines
   # (using data where cumulative cases > 100, up to max date)
-  data <- data.frame(lspline(cases_eng_100$Cumulative_cases_beg, knots = c(knot_1, knot_2)))
-  names(data) <- c( "Cumulative_cases_beg_1", "Cumulative_cases_beg_2", "Cumulative_cases_beg_3")  
-  data <- bind_cols(Daily_cases = cases_eng_100$Daily_cases, data)
+  covariates <- data.frame(lspline(cases_eng_100$Cumulative_cases_beg, knots = c(knot_1, knot_2)))
+  names(covariates) <- c( "Cumulative_cases_beg_1", "Cumulative_cases_beg_2", "Cumulative_cases_beg_3")  
   
   # Fit ARIMA model w/ specified knot points (no intercept)
-  spline <- Arima(data$Daily_cases, order = c(2, 0, 0), 
+  spline <- Arima(cases_ts, order = c(1, 0, 0), 
                   seasonal = list(order = c(1, 0, 0), period = 7),
-                  xreg = as.matrix(data[, 2:4]), include.constant = FALSE)
+                  xreg = as.matrix(covariates[, 1:3]), include.constant = FALSE)
   
   # Record model parameters
   spline_slope_1 <- as.numeric(coef(spline)["Cumulative_cases_beg_1"])  # slope of segment 1
@@ -140,11 +142,11 @@ for (i in 1:nrow(knots)) {
   
   # Calculate and record RMSE 
   ## (1) For true vs predicted incident cases
-  true_inc <- cases_eng_100$Daily_cases
+  true_inc <- cases_eng_100$Daily_cases_MA7
   pred_inc <- daily_cases_sim[1, -1]
   knots[i, "RMSE_inc"] <- rmse(true_inc, pred_inc)
   ## (2) For true vs predicted cumulative cases
-  true_cum <- cases_eng_100$Cumulative_cases_end
+  true_cum <- cases_eng_100$Cumulative_cases_end_MA7
   pred_cum <- cumulative_cases_end_sim[1, -1]
   knots[i, "RMSE_cum"] <- rmse(true_cum, pred_cum)
   
@@ -165,9 +167,9 @@ knots1 <- knots %>% arrange(RMSE_inc) %>% head(10)
 # Calculate knots with lowest RMSE_cum
 knots2 <- knots %>% arrange(RMSE_cum) %>% head(10)
 
-# Keep matches between three datsets
-knots_best <- knots1[(knots1$Knot_date_1 %in% knots2$Knot_date_1 & knots1$Knot_date_1 %in% knots3$Knot_date_1) & 
-                       (knots1$Knot_date_2 %in% knots2$Knot_date_2 & knots1$Knot_date_2 %in% knots3$Knot_date_2), ]
+# Keep matches between two datsets
+knots_best <- knots1[(knots1$Knot_date_1 %in% knots2$Knot_date_1) & 
+                       (knots1$Knot_date_2 %in% knots2$Knot_date_2), ]
 knots_best
 
 # Export
