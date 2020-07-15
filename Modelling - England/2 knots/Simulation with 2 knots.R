@@ -499,3 +499,72 @@ g <- annotate_figure(p, top = text_grob("Cumulative lab-confirmed cases of Covid
                      bottom = text_grob("Data from https://coronavirus.data.gov.uk.", size = 10))
 ggsave(paste0(out, "Plot - True vs counterfactual - cumulative cases.png"),
        plot = g, width = 6, height = 4*length(plot_cases_cum_sim))
+
+## Plot exponential growth -----------------------------------------------------
+
+# Calculate spline intercepts
+spline_int_1 <- 0  # segment 1 (slope fixed at 0)
+spline_int_2 <- (spline_int_1 + spline_slope_1*knot_1) - spline_slope_2*knot_1  # segment 2
+spline_int_3 <- (spline_int_2 + spline_slope_2*knot_2) - spline_slope_3*knot_2  # segment 3
+
+# Cumulative vs incident cases
+plot_exp_growth_cases <- ggplot(data = filter(cases_eng, Date <= date_T),
+                                aes(x = Cumulative_cases_beg, 
+                                    y = Daily_cases)) +
+  theme_minimal() +
+  theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
+  labs(title = "Exponential growth of Covid-19 cases in England",
+       subtitle = "Cumulative versus incident cases",
+       caption = paste0("Data from https://coronavirus.data.gov.uk,\n up to ", 
+                        as.character(date_T, format = "%d %b %C"), ".")) +
+  geom_path() +
+  geom_point(size = 1) +
+  geom_segment(aes(x = min(cases_eng_100$Cumulative_cases_beg), xend = knot_1,
+                   y = spline_int_1 + spline_slope_1*min(cases_eng_100$Cumulative_cases_beg), 
+                   yend = spline_int_1 + spline_slope_1*knot_1),
+               color = "red") + 
+  geom_segment(aes(x = knot_1, xend = knot_2,
+                   y = spline_int_2 + spline_slope_2*knot_1, 
+                   yend = spline_int_2 + spline_slope_2*knot_2),
+               color = "orange") +
+  geom_segment(aes(x = knot_2, xend = max(cases_eng_100$Cumulative_cases_beg),
+                   y = spline_int_3 + spline_slope_3*knot_2, 
+                   yend = spline_int_3 + spline_slope_3*max(cases_eng_100$Cumulative_cases_beg)),
+               color = "green") +
+  geom_point(data = subset(cases_eng, Date == date_sd),
+             size = 3, color = "blue", shape = 17) +
+  geom_text(data = subset(cases_eng, Date == date_sd), color = "blue",
+            label = paste0("Date of social distancing:\n", as.character(date_sd, format = "%d %b")),
+            hjust = 0, vjust = 1, position = position_nudge(x = 2000), size = 3) +
+  geom_point(data = subset(cases_eng, Date == date_lockdown), 
+             size = 3, color = "blue", shape = 17) +
+  geom_text(data = subset(cases_eng, Date == date_lockdown), color = "blue",
+            label = paste0("Date of lockdown:\n", as.character(date_lockdown, format = "%d %b")),
+            hjust = 0, vjust = 1, position = position_nudge(x = 2000), size = 3) +
+  geom_point(data = subset(cases_eng, Date == knot_date_1), 
+             size = 3, shape = 15) +
+  geom_text(data = subset(cases_eng, Date == knot_date_1), 
+            label = paste0(as.character(knot_date_1, format = "%d %b")),
+            hjust = 0.5, vjust = 0, position = position_nudge(y = 200), size = 3) +
+  geom_point(data = subset(cases_eng, Date == knot_date_2), 
+             size = 3, shape = 15) +
+  geom_text(data = subset(cases_eng, Date == knot_date_2), 
+            label = paste0(as.character(knot_date_2, format = "%d %b")),
+            hjust = 0.5, vjust = 1, position = position_nudge(y = -200), size = 3) +
+  scale_x_continuous(name = "Cumulative number of lab-confirmed cases",
+                     limits = c(0, 160000),
+                     breaks = seq(0, 160000, 20000),
+                     labels = comma_format(accuracy = 1),
+                     expand = expansion(mult = c(0, 0))) + 
+  scale_y_continuous(name = "New daily number of lab-confirmed cases",
+                     limits = c(0, 6000),
+                     breaks = seq(0, 6000, 1000),
+                     labels = comma_format(accuracy = 1),
+                     expand = expansion(mult = c(0, 0)))
+#plot_exp_growth_cases
+
+# Save plot
+ggsave(paste0(out, "Plot - Cumulative vs incident cases - normal scale.png"),
+       plot = plot_exp_growth_cases, width = 6, height = 6)
+
+
