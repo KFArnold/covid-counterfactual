@@ -107,7 +107,8 @@ for (t in 2:nrow(cases_eng)) {
 rm(t, inc_tminus1, inc_t, growth_factor)
 
 # Calculate 7-day moving averages of daily and cumulative cases and deaths
-cases_eng <- cases_eng %>% mutate(Daily_cases_MA7 = round(runmean(Daily_cases, k = 7, alg = "C", endrule = "mean"), 3),
+cases_eng <- cases_eng %>% mutate(Cumulative_cases_beg_MA7 = round(runmean(Cumulative_cases_beg, k = 7, alg = "C", endrule = "mean"), 3),
+                                  Daily_cases_MA7 = round(runmean(Daily_cases, k = 7, alg = "C", endrule = "mean"), 3),
                                   Cumulative_cases_end_MA7 = round(runmean(Cumulative_cases_end, k = 7, alg = "C", endrule = "mean"), 3))
 deaths_hosp_dor_eng <- deaths_hosp_dor_eng %>% mutate(Daily_deaths_MA7 = round(runmean(Daily_deaths, k = 7, alg = "C", endrule = "mean"), 3),
                                                       Cumulative_deaths_MA7 = round(runmean(Cumulative_deaths, k = 7, alg = "C", endrule = "mean"), 3))
