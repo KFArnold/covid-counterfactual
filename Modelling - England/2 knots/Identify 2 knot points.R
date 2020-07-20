@@ -18,7 +18,7 @@
 
 # Load required packages
 packrat::restore()
-library(tidyverse); library(lspline); library(forecast); library(Metrics)
+library(tidyverse); library(lspline); library(forecast)
 
 # Run source code to import and format data
 source("./Modelling - England/Import and format data.R")
@@ -29,6 +29,18 @@ path <- paste0("./Modelling - England/2 knots/")
 # Set storage directory for outputs
 # (default is simulation directory)
 out <- path
+
+## Functions -------------------------------------------------------------------
+
+# Function to calculate Poisson deviance between two vectors
+# from: https://en.wikipedia.org/wiki/Deviance_(statistics)
+# Arguments: obs = vector of observed values, sim = vector of simulated/predicted values
+Calc_Pois_Dev <- function(obs, sim) {
+  
+  D <- 2 * sum(obs * log(obs / sim) - (obs - sim))
+  return(D)
+  
+}
 
 # ------------------------------------------------------------------------------
 # Estimate when exponential growth changed 
@@ -60,10 +72,11 @@ knots <- tibble(Knot_date_1 = as.Date(character()),
                 Growth_factor_1 = as.numeric(),
                 Growth_factor_2 = as.numeric(),
                 Growth_factor_3 = as.numeric(),
-                AIC = as.numeric(),
-                BIC = as.numeric(),
-                RMSE_inc = as.numeric(),
-                RMSE_cum = as.numeric(),
+                Growth_factor_1_sd = as.numeric(),
+                Growth_factor_2_sd = as.numeric(),
+                Growth_factor_3_sd = as.numeric(),
+                Pois_dev_inc = as.numeric(),
+                Pois_dev_cum = as.numeric(),
                 Diff_cum_end = as.numeric())
 grid <- tibble(expand.grid(possible_knot_dates_2, possible_knot_dates_1))
 names(grid) <- c("Knot_date_2", "Knot_date_1")
@@ -98,21 +111,24 @@ for (i in 1:nrow(knots)) {
   # Fit ARIMA model w/ specified knot points (no intercept)
   spline <- Arima(cases_ts, order = c(1, 0, 0), 
                   seasonal = list(order = c(1, 0, 0), period = 7),
-                  xreg = as.matrix(covariates[, 1:3]), include.constant = FALSE)
+                  xreg = as.matrix(covariates[, 1:3]), include.constant = FALSE,
+                  method = "ML")
   
   # Record model parameters
   spline_slope_1 <- as.numeric(coef(spline)["Cumulative_cases_beg_1"])  # slope of segment 1
   spline_slope_2 <- as.numeric(coef(spline)["Cumulative_cases_beg_2"])  # slope of segment 2
   spline_slope_3 <- as.numeric(coef(spline)["Cumulative_cases_beg_3"])  # slope of segment 3
+  spline_slope_1_sd <- as.numeric(sqrt(diag(spline$var.coef))[["Cumulative_cases_beg_1"]])  # SD of slope of segment 1
+  spline_slope_2_sd <- as.numeric(sqrt(diag(spline$var.coef))[["Cumulative_cases_beg_2"]])  # SD of slope of segment 2
+  spline_slope_3_sd <- as.numeric(sqrt(diag(spline$var.coef))[["Cumulative_cases_beg_3"]])  # SD of slope of segment 3
   
-  # Calculate and record growth factors
+  # Record growth factors and SDs in knots summary table
   knots[[i, "Growth_factor_1"]] <- growth_factor_1 <- spline_slope_1 + 1
   knots[[i, "Growth_factor_2"]] <- growth_factor_2 <- spline_slope_2 + 1
   knots[[i, "Growth_factor_3"]] <- growth_factor_3 <- spline_slope_3 + 1
-  
-  # Record model summaries
-  knots[[i, "AIC"]] <- AIC(spline)
-  knots[[i, "BIC"]] <- BIC(spline)
+  knots[[i, "Growth_factor_1_sd"]] <- spline_slope_1_sd
+  knots[[i, "Growth_factor_2_sd"]] <- spline_slope_2_sd
+  knots[[i, "Growth_factor_3_sd"]] <- spline_slope_3_sd
   
   # (2) Estimate growth of cases using knot points
   for (t in as.list(dates)) {
@@ -140,36 +156,35 @@ for (i in 1:nrow(knots)) {
     
   }  # close loop (2)
   
-  # Calculate and record RMSE 
-  ## (1) For true vs predicted incident cases
+  # Calculate and record Poisson deviance
+  ## (1) For predicted vs true (7-day moving average) incident cases
   true_inc <- cases_eng_100$Daily_cases_MA7
   pred_inc <- daily_cases_sim[1, -1]
-  knots[i, "RMSE_inc"] <- rmse(true_inc, pred_inc)
-  ## (2) For true vs predicted cumulative cases
+  knots[i, "Pois_dev_inc"] <- Calc_Pois_Dev(obs = true_inc, sim = pred_inc)
+  ## (2) For predicted vs true (7-day moving average) cumulative cases
   true_cum <- cases_eng_100$Cumulative_cases_end_MA7
   pred_cum <- cumulative_cases_end_sim[1, -1]
-  knots[i, "RMSE_cum"] <- rmse(true_cum, pred_cum)
+  knots[i, "Pois_dev_cum"] <- Calc_Pois_Dev(obs = true_cum, sim = pred_cum)
   
   # Calculate absolute difference between cumulative cases at end of simulation vs true
   true_cum_end <- filter(cases_eng_100, Date == date_T)$Cumulative_cases_end
   pred_cum_end <- cumulative_cases_end_sim[1, ncol(cumulative_cases_end_sim)]
   knots[i, "Diff_cum_end"] <- true_cum_end - pred_cum_end
-
+  
   # Display progress 
   cat('\r', paste(round((i / nrow(knots) * 100), 0), 
                   "% done    ", sep = " "))
   
 }  # close loop (1)
 
-# Calculate knots with lowest RMSE_inc
-knots1 <- knots %>% arrange(RMSE_inc) %>% head(10)
+# Calculate 10 knots with lowest Pois_dev_inc
+knots1 <- knots %>% arrange(Pois_dev_inc) %>% head(10)
 
-# Calculate knots with lowest RMSE_cum
-knots2 <- knots %>% arrange(RMSE_cum) %>% head(10)
+# Calculate 10 knots with lowest Pois_dev_cum
+knots2 <- knots %>% arrange(Pois_dev_cum) %>% head(10)
 
 # Keep matches between two datsets
-knots_best <- knots1[(knots1$Knot_date_1 %in% knots2$Knot_date_1) & 
-                       (knots1$Knot_date_2 %in% knots2$Knot_date_2), ]
+knots_best <- intersect(knots1, knots2)
 knots_best
 
 # Export
