@@ -16,17 +16,13 @@ packrat::restore()
 library(tidyverse); library(lspline); library(forecast); library(ggpubr); library(scales)
 
 # Run source code to import and format data
-source("./Modelling - England/Import and format data.R")
-
-# Set simulation-specific directory
-path <- paste0("./Modelling - England/2 knots/")
+source("./Code/Import and format data.R")
 
 # Set storage directory for outputs
-# (default is simulation directory)
-out <- path
+out <- paste0("./Results/")
 
 # Import file containing best knot points
-knots_best <- read_csv(paste0(path, "Best knot points.csv"))
+knots_best <- read_csv(paste0(out, "Best knot points.csv"))
 
 ## Functions -------------------------------------------------------------------
 
@@ -76,12 +72,12 @@ knot_date_2 <- filter(knots_best, RMSE_inc == min(RMSE_inc))$Knot_date_2
 # Create folder for storing knot-specific outputs if none exists
 # and set as storage directory for outputs
 folder <- paste(knot_date_1, "and", knot_date_2, sep = " ")
-if (!dir.exists(paste0(path, folder))) {
-  dir.create(paste0(path, folder))
+if (!dir.exists(paste0(out, folder))) {
+  dir.create(paste0(out, folder))
 } else {
   print("Folder already exists")
 }
-out <- paste0(path, folder, "/")
+out <- paste0(out, folder, "/")
 
 # Calculate cumulative cases at date of knot
 knot_1 <- subset(cases_eng_100, Date == knot_date_1)$Cumulative_cases_beg

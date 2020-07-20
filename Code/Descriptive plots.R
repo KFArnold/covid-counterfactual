@@ -13,14 +13,10 @@ packrat::restore()
 library(tidyverse); library(ggpubr); library(scales)
 
 # Run source code to import and format data
-source("./Modelling - England/Import and format data.R")
-
-# Set simulation-specific directory
-path <- paste0("./Modelling - England/")
+source("./Code/Import and format data.R")
 
 # Set storage directory for outputs
-# (default is simulation directory)
-out <- path
+out <- paste0("./Results/")
 
 # ------------------------------------------------------------------------------
 # Descriptive plots

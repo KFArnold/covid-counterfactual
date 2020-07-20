@@ -21,14 +21,10 @@ packrat::restore()
 library(tidyverse); library(lspline); library(forecast)
 
 # Run source code to import and format data
-source("./Modelling - England/Import and format data.R")
-
-# Set simulation-specific directory
-path <- paste0("./Modelling - England/2 knots/")
+source("./Code/Import and format data.R")
 
 # Set storage directory for outputs
-# (default is simulation directory)
-out <- path
+out <- paste0("./Results/")
 
 ## Functions -------------------------------------------------------------------
 
