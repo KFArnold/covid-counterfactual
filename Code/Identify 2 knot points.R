@@ -183,6 +183,18 @@ knots2 <- knots %>% arrange(Pois_dev_cum) %>% head(10)
 knots_best <- intersect(knots1, knots2)
 knots_best
 
+# Construct probability for selecting each pair of knot points
+## (1) Equal probability of each knot point pair
+knots_best <- knots_best %>% mutate(Prob_equal = 1 / nrow(knots_best))
+## (2) Unequal probabilities of each knot point pair according to Pois_dev_cum
+### Create inverse of Pois_dev_cum values so that lower values are ranked higher,
+### calculate normaliser for rescaling Pois_dev_cum inverse values, and
+### calculate probability by multiplying Pois_dev_cum inverse values by normaliser
+knots_best <- knots_best %>% mutate(Pois_dev_cum_inv = 1 / Pois_dev_cum,
+                                    Norm = 1 / sum(Pois_dev_cum_inv), 
+                                    Prob_unequal = Pois_dev_cum_inv * Norm) %>%
+  select(-c(Pois_dev_cum_inv, Norm))
+
 # Export
 filename <- paste0("Best knot points.csv")
 write_csv(knots_best, path = paste0(out, filename))
