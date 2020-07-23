@@ -61,6 +61,12 @@ Round_preserve_sum <- function(x, digits = 0) {
   y / up
 }
 
+# Function to calculate percent change in a number between two time periods
+# Arguments: initial value (initial), final value (final)
+Percent_Change <- function(initial, final) {
+  (final - initial) / initial * 100
+}
+
 # ------------------------------------------------------------------------------
 # Define simulation parameters
 # ------------------------------------------------------------------------------
@@ -348,11 +354,23 @@ summary_deaths_sim <- bind_rows(tibble(scenarios_true,
                                                         filter(deaths_hosp_dor_eng, Date == date_T)$Cumulative_deaths))),
                                 summary_deaths_sim)
 
+# Create summary table of cases and deaths at time_T
+cases_natural_history_T <- summary_cumulative_cases_end_sim %>% 
+  filter(Date == date_T, Simulation == "Natural history") %>% pull(Mean)  # cases under natural history at time_T
+cases_T <- summary_cumulative_cases_end_sim %>% filter(Date == date_T) %>% 
+  mutate(Percent_change_cases = ifelse(Simulation == "Counterfactual history", 
+                                 Percent_Change(initial = cases_natural_history_T, final = Mean), NA)) %>%
+  rename_at(vars(Mean, C_025, C_975), function(x) { paste0(x, "_cases") })
+deaths_T <- summary_deaths_sim %>% rename_at(vars(Mean, C_025, C_975), function(x) { paste0(x, "_deaths") })
+summary_T <- full_join(cases_T, deaths_T)
+rm(cases_natural_history_T, cases_T, deaths_T)
+
 # Export all summary data
 write_csv(summary_daily_cases_sim, path = paste0(out, "Summary - daily cases.csv"))
 write_csv(summary_cumulative_cases_end_sim, path = paste0(out, "Summary - cumulative cases.csv"))
 write_csv(summary_growth_factor_sim, path = paste0(out, "Summary - growth factors.csv"))
 write_csv(summary_deaths_sim, path = paste0(out, "Summary - deaths.csv"))
+write_csv(summary_T, path = paste0(out, "Final summary - cases and deaths at end of simulation.csv"))
 
 # Export descriptions of simulated interventions
 write_csv(scenarios_sim, path = paste0(out, "Hypothetical interventions.csv"))
