@@ -49,6 +49,18 @@ Summarise_centiles <- function(x) {
     C_975 = quantile(x, 0.975, names = FALSE))
 }
 
+# Function to preserve rounded sum
+# (from https://www.r-bloggers.com/round-values-while-preserve-their-rounded-sum-in-r/)
+# Arguments: vector of values (x), number of digits (default = 0)
+Round_preserve_sum <- function(x, digits = 0) {
+  up <- 10 ^ digits
+  x <- x * up
+  y <- floor(x)
+  indices <- tail(order(x-y), round(sum(x)) - sum(y))
+  y[indices] <- y[indices] + 1
+  y / up
+}
+
 # ------------------------------------------------------------------------------
 # Define simulation parameters
 # ------------------------------------------------------------------------------
@@ -72,6 +84,13 @@ growth_factor_3_sd <- knots_best %>% pull(Growth_factor_3_sd)
 prob_equal <- knots_best %>% pull(Prob_equal)
 prob_unequal <- knots_best %>% pull(Prob_unequal)
 
+# Define number of simulation runs per simulated scenario
+n_runs <- 100000
+
+# Calculate number of simulation runs for each pair of knot dates 
+n_equal <- Round_preserve_sum(prob_equal * n_runs)
+n_unequal <- Round_preserve_sum(prob_unequal * n_runs)
+
 # Define true sd/lockdown dates
 scenarios_true <- tibble(Simulation = "True",
                          Description = "True",
@@ -85,7 +104,7 @@ knots_sim <- bind_rows(tibble(Simulation = "Natural history",
                               Growth_factor_1 = growth_factor_1, Growth_factor_1_sd = growth_factor_1_sd,
                               Growth_factor_2 = growth_factor_2, Growth_factor_2_sd = growth_factor_2_sd,
                               Growth_factor_3 = growth_factor_3, Growth_factor_3_sd = growth_factor_3_sd,
-                              Prob = prob_unequal),
+                              Prob = prob_unequal, N = n_unequal),
                        tibble(Simulation = "Counterfactual history",
                               Description = "Social distancing and lockdown 1 week earlier",
                               Date_sd = date_sd - 7, Date_lockdown = date_lockdown - 7,
@@ -93,7 +112,7 @@ knots_sim <- bind_rows(tibble(Simulation = "Natural history",
                               Growth_factor_1 = growth_factor_1, Growth_factor_1_sd = growth_factor_1_sd,
                               Growth_factor_2 = growth_factor_2, Growth_factor_2_sd = growth_factor_2_sd,
                               Growth_factor_3 = growth_factor_3, Growth_factor_3_sd = growth_factor_3_sd,
-                              Prob = prob_unequal),
+                              Prob = prob_unequal, N = n_unequal),
                        tibble(Simulation = "Counterfactual history",
                               Description = "Social distancing and lockdown 2 weeks earlier",
                               Date_sd = date_sd - 14, Date_lockdown = date_lockdown - 14,
@@ -101,14 +120,7 @@ knots_sim <- bind_rows(tibble(Simulation = "Natural history",
                               Growth_factor_1 = growth_factor_1, Growth_factor_1_sd = growth_factor_1_sd,
                               Growth_factor_2 = growth_factor_2, Growth_factor_2_sd = growth_factor_2_sd,
                               Growth_factor_3 = growth_factor_3, Growth_factor_3_sd = growth_factor_3_sd,
-                              Prob = prob_unequal))
-
-# Define number of simulation runs per simulated scenario
-n_runs <- 100000
-
-# Calculate number of simulation runs for each pair of knot dates 
-knots_sim <- knots_sim %>% mutate(N = round(Prob * n_runs))
-#knots_sim %>% group_by(Description) %>% summarise(Sum = sum(N), .groups = "keep") %>% pull(Sum)
+                              Prob = prob_unequal, N = n_unequal))
 
 # Create succinct dataframe containing simulation, description, and sd/lockdown dates
 scenarios_sim <- knots_sim %>% select(Simulation, Description, Date_sd, Date_lockdown) %>% unique
@@ -301,7 +313,7 @@ for (k in 1:n_sim) {
     mutate(Date = date_T) %>%
     relocate(names(scenarios_sim_k), Date)
   
-}  # close loop 3 (k)
+}  # close loop 1 (k)
 end <- Sys.time()
 end - start
 
@@ -315,18 +327,18 @@ summary_cumulative_cases_end_sim <- bind_rows(summary_cumulative_cases_end_sim)
 summary_growth_factor_sim <- bind_rows(summary_growth_factor_sim) 
 summary_deaths_sim <- bind_rows(summary_deaths_sim) 
 
-# Combine summary data with true (observed) data
+# Combine summary data with true (observed) data up to time_T
 summary_daily_cases_sim <- bind_rows(tibble(scenarios_true, 
-                                            Date = cases_eng$Date,
-                                            Mean = cases_eng$Daily_cases), 
+                                            Date = filter(cases_eng, Date <= date_T)$Date,
+                                            Mean = filter(cases_eng, Date <= date_T)$Daily_cases), 
                                      summary_daily_cases_sim)
 summary_cumulative_cases_end_sim <- bind_rows(tibble(scenarios_true,
-                                                     Date = cases_eng$Date,
-                                                     Mean = cases_eng$Cumulative_cases_end),
+                                                     Date = filter(cases_eng, Date <= date_T)$Date,
+                                                     Mean = filter(cases_eng, Date <= date_T)$Cumulative_cases_end),
                                               summary_cumulative_cases_end_sim)
 summary_growth_factor_sim <- bind_rows(tibble(scenarios_true,
-                                              Date = cases_eng$Date,
-                                              Mean = cases_eng$Growth_factor),
+                                              Date = filter(cases_eng, Date <= date_T)$Date,
+                                              Mean = filter(cases_eng, Date <= date_T)$Growth_factor),
                                        summary_growth_factor_sim)
 summary_deaths_sim <- bind_rows(tibble(scenarios_true,
                                        Date = date_T,
@@ -429,8 +441,8 @@ for (i in 1:nrow(scenarios_sim)) {
 
 # Save plots
 p <- ggarrange(plotlist = plot_cases_inc_sim, nrow = length(plot_cases_inc_sim))
-g <- annotate_figure(p, top = text_grob("Incident lab-confirmed cases of Covid-19 in England", size = 16),
-                     bottom = text_grob("Data from https://coronavirus.data.gov.uk.", size = 10))
+g <- annotate_figure(p, top = text_grob("Incident lab-confirmed cases of Covid-19 in England (Pillar 1)", size = 15),
+                     bottom = text_grob("Data from https://www.gov.uk/guidance/coronavirus-covid-19-information-for-the-public.", size = 10))
 ggsave(paste0(out, "Plot - true vs counterfactual - incident cases.png"),
        plot = g, width = 6, height = 4*length(plot_cases_inc_sim))
 
@@ -466,13 +478,13 @@ for (i in 1:nrow(scenarios_sim)) {
     geom_col(data = filter(summary_cumulative_cases_end_sim, 
                            Simulation == "True"), aes(x = Date, y = Mean), alpha = 0.4) +
     geom_vline(xintercept = date_sd_i, col = "red4") +
-    geom_text(aes_(x = date_sd_i - 1, y = 100000, 
+    geom_text(aes_(x = date_sd_i - 1, y = 120000, 
                    label = paste0("Date of\nsocial distancing:\n", 
                                   as.character(date_sd_i, format = "%d %b %C")), 
                    hjust = 1),
               color = "red4", size = 3, check_overlap = TRUE, show.legend = FALSE) +
     geom_vline(xintercept = date_lockdown_i, col = "red4") +
-    geom_text(aes_(x = date_lockdown_i + 1, y = 160000, 
+    geom_text(aes_(x = date_lockdown_i + 1, y = 190000, 
                    label = paste0("Date of\nlockdown:\n", 
                                   as.character(date_lockdown_i, format = "%d %b %C")), 
                    hjust = 0),
@@ -494,8 +506,8 @@ for (i in 1:nrow(scenarios_sim)) {
                  date_labels = "%d %b %C",
                  expand = expansion(mult = c(0, 0))) +
     scale_y_continuous(name = "Number of lab-confirmed cases",
-                       limits = c(0, 220000), 
-                       breaks = seq(0, 220000, 20000),
+                       limits = c(0, 240000), 
+                       breaks = seq(0, 240000, 30000),
                        labels = comma_format(accuracy = 1),
                        expand = expansion(mult = c(0, 0)))
   #p
@@ -507,8 +519,8 @@ for (i in 1:nrow(scenarios_sim)) {
 
 # Save plots
 p <- ggarrange(plotlist = plot_cases_cum_sim, nrow = length(plot_cases_cum_sim))
-g <- annotate_figure(p, top = text_grob("Cumulative lab-confirmed cases of Covid-19 in England", size = 16),
-                     bottom = text_grob("Data from https://coronavirus.data.gov.uk.", size = 10))
+g <- annotate_figure(p, top = text_grob("Cumulative lab-confirmed cases of Covid-19 in England (Pillar 1)", size = 15),
+                     bottom = text_grob("Data from https://www.gov.uk/guidance/coronavirus-covid-19-information-for-the-public.", size = 10))
 ggsave(paste0(out, "Plot - true vs counterfactual - cumulative cases.png"),
        plot = g, width = 6, height = 4*length(plot_cases_cum_sim))
 
@@ -523,9 +535,9 @@ plot_exp_growth_cases <- ggplot(data = filter(cases_eng, Date <= date_T),
                                     y = Daily_cases)) +
   theme_minimal() +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
-  labs(title = "Exponential growth of Covid-19 cases in England",
+  labs(title = "Exponential growth of Covid-19 cases in England (Pillar 1)",
        subtitle = "Cumulative versus incident cases",
-       caption = paste0("Data from https://coronavirus.data.gov.uk,\n up to ", 
+       caption = paste0("Data from https://www.gov.uk/guidance/coronavirus-covid-19-information-for-the-public,\n up to ", 
                         as.character(date_T, format = "%d %b %C"), ".")) +
   geom_path() +
   geom_point(size = 1) +
@@ -549,7 +561,6 @@ plot_exp_growth_cases <- ggplot(data = filter(cases_eng, Date <= date_T),
                      breaks = seq(0, 6000, 1000),
                      labels = comma_format(accuracy = 1),
                      expand = expansion(mult = c(0, 0)))
-#plot_exp_growth_cases
 
 # Add fitted lines corresponding to best knot dates onto base plot
 for (i in 1:nrow(knots_best)) {
@@ -591,7 +602,6 @@ for (i in 1:nrow(knots_best)) {
                  color = "green", size = 0.25, linetype = "dashed")
   
 }
-
 #plot_exp_growth_cases
 
 # Save plot
