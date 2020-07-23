@@ -18,28 +18,31 @@ library(tidyverse); library(caTools)
 # ------------------------------------------------------------------------------
 
 # Load data
-# Datasets downloaded from https://coronavirus.data.gov.uk:
-govuk_data_cases <- read_csv("./Data/Gov.uk data/coronavirus-cases_latest.csv")
+## Dataset downloaded from https://www.gov.uk/guidance/coronavirus-covid-19-information-for-the-public:
+govuk_data_cases <- read_csv("./Data/Gov.uk data/coronavirus-cases-pillars_latest.csv")
+## Dataset downloaded from https://coronavirus.data.gov.uk:
+#govuk_data_cases <- read_csv("./Data/Gov.uk data/coronavirus-cases_latest.csv")
 govuk_data_deaths_hosp_dor <- read_csv("./Data/Gov.uk data/coronavirus-deaths_latest.csv") # by day of reporting
-# Dataset downloaded from https://www.england.nhs.uk/statistics/statistical-work-areas/covid-19-daily-deaths/: 
+## Dataset downloaded from https://www.england.nhs.uk/statistics/statistical-work-areas/covid-19-daily-deaths/: 
 nhseng_data_deaths_hosp_dod <- read_csv("./Data/NHS England data/coronavirus-deaths_latest.csv") # by day of death
-# Dataset downloaded from ONS:
+## Dataset downloaded from ONS:
 ons_data_deaths_all_dod <- read_csv("./Data/ONS data/ons-coronavirus-deaths_latest.csv")
 
-# Remove spaces from variable names
+# Remove spaces, dashes, and parentheses from variable names
 names(govuk_data_cases) <- str_replace_all(names(govuk_data_cases), 
-                                           c(" " = "_", "-" = "_"))
+                                           c(" " = "_", "-" = "_", "\\)" = "", "\\(" = ""))
 names(govuk_data_deaths_hosp_dor) <- str_replace_all(names(govuk_data_deaths_hosp_dor), 
-                                                     c(" " = "_", "-" = "_"))
+                                                     c(" " = "_", "-" = "_", "\\)" = "", "\\(" = ""))
 names(nhseng_data_deaths_hosp_dod) <- str_replace_all(names(nhseng_data_deaths_hosp_dod), 
-                                                      c(" " = "_", "-" = "_"))
+                                                      c(" " = "_", "-" = "_", "\\)" = "", "\\(" = ""))
 names(ons_data_deaths_all_dod) <- str_replace_all(names(ons_data_deaths_all_dod), 
-                                                  c(" " = "_", "-" = "_"))
+                                                  c(" " = "_", "-" = "_", "\\)" = "", "\\(" = ""))
 
-# Copy datasets and remove originals
+# Copy datasets, standardise variable names, and remove originals
 cases <- govuk_data_cases %>% 
-  select(c(Area_name, Area_code, Area_type, Date = Specimen_date, 
-           Daily_cases = Daily_lab_confirmed_cases, Cumulative_cases = Cumulative_lab_confirmed_cases))
+  select(c(Area_name = Nation, Pillar, Date = Earliest_Specimen_Date, 
+           Daily_cases = Daily_number_of_positive_cases_new_methodology, 
+           Cumulative_cases = Cumulative_number_of_positive_cases_new_methodology))
 deaths_hosp_dor <- govuk_data_deaths_hosp_dor %>% 
   select(c(Area_name, Area_code, Area_type, Date = Reporting_date, 
            Daily_deaths = Daily_change_in_deaths, Cumulative_deaths))
@@ -53,21 +56,23 @@ rm(govuk_data_cases, govuk_data_deaths_hosp_dor, nhseng_data_deaths_hosp_dod, on
 # View data
 # cases; deaths_hosp_dor; deaths_hosp_dod; deaths_all_dod
 
-# Factorise data and group by Area_name
-cases <- cases %>% mutate_at(vars(Area_name, Area_code, Area_type), funs(as.factor)) %>% group_by(Area_name)
-deaths_hosp_dor <- deaths_hosp_dor %>% mutate_at(vars(Area_name, Area_code, Area_type), funs(as.factor)) %>% group_by(Area_name)
-deaths_hosp_dod <- deaths_hosp_dod %>% mutate_at(vars(Area_name), funs(as.factor)) %>% group_by(Area_name)
-deaths_all_dod <- deaths_all_dod %>% mutate_at(vars(Area_name), funs(as.factor)) %>% group_by(Area_name)
+# Format variable types, group by Area_name (and Pillar, if applicable)
+cases <- cases %>% mutate_at(vars(Area_name, Pillar), funs(as.factor)) %>%
+  mutate_at(vars(Daily_cases, Cumulative_cases), funs(as.numeric)) %>% 
+  mutate_at(vars(Date), funs(as.Date), format = "%d/%m/%Y") %>%
+  group_by(Area_name, Pillar)
+deaths_hosp_dor <- deaths_hosp_dor %>% mutate_at(vars(Area_name, Area_code, Area_type), funs(as.factor)) %>% 
+  group_by(Area_name)
+deaths_hosp_dod <- deaths_hosp_dod %>% mutate_at(vars(Area_name), funs(as.factor)) %>% 
+  group_by(Area_name)
+deaths_all_dod <- deaths_all_dod %>% mutate_at(vars(Area_name), funs(as.factor)) %>% 
+  group_by(Area_name)
 
 # Reorder data by date
 cases <- cases %>% arrange(Date)
 deaths_hosp_dor <- deaths_hosp_dor %>% arrange(Date)
 deaths_hosp_dod <- deaths_hosp_dod %>% arrange(Date)
 deaths_all_dod <- deaths_all_dod %>% arrange(Date)
-
-# Remove entries for which daily or cumulative cases are NA
-cases <- cases %>% filter(!is.na(Daily_cases) | !is.na(Cumulative_cases))
-#deaths_hosp_dor %>% filter(is.na(Daily_deaths) | is.na(Cumulative_deaths))
 
 # Define date for which data can be reasonably assumed complete (due to reporting delays)
 date_max <- max(cases$Date) - 5
@@ -78,8 +83,8 @@ deaths_hosp_dor <- deaths_hosp_dor %>% filter(Date <= date_max)
 deaths_hosp_dod <- deaths_hosp_dod %>% filter(Date <= date_max)
 deaths_all_dod <- deaths_all_dod %>% filter(Date <= date_max)
 
-# Retain only country-level data for England and remove other data files
-cases_eng <- cases %>% filter(Area_name == "England")
+# Retain only country-level (and Pillar 1) data for England and remove other data files
+cases_eng <- cases %>% filter(Area_name == "England", Pillar == "Pillar 1")
 deaths_hosp_dor_eng <- deaths_hosp_dor %>% filter(Area_name == "England")
 deaths_hosp_dod_eng <- deaths_hosp_dod %>% filter(Area_name == "England")
 deaths_all_dod_eng <- deaths_all_dod %>% filter(Area_name == "England")
