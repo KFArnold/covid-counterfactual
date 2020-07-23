@@ -40,8 +40,8 @@ cfr_hosp_dod_plot <- ggplot(data = deaths_hosp_dod_eng,
                date_labels = "%d %b %C",
                expand = expansion(mult = c(0, 0))) +
   scale_y_continuous(name = "Case fatality ratio",
-                     limits = c(0, 0.25), 
-                     breaks = seq(0, 0.25, 0.05),
+                     limits = c(0, 0.3), 
+                     breaks = seq(0, 0.3, 0.05),
                      expand = expansion(mult = c(0, 0)))
 cfr_hosp_dod_plot
 
@@ -61,8 +61,8 @@ cfr_hosp_dor_plot <- ggplot(data = deaths_hosp_dor_eng,
                date_labels = "%d %b %C",
                expand = expansion(mult = c(0, 0))) +
   scale_y_continuous(name = "Case fatality ratio",
-                     limits = c(0, 0.25), 
-                     breaks = seq(0, 0.25, 0.05),
+                     limits = c(0, 0.3), 
+                     breaks = seq(0, 0.3, 0.05),
                      expand = expansion(mult = c(0, 0)))
 cfr_hosp_dor_plot
 
@@ -80,8 +80,8 @@ plot_cases_inc <- ggplot(data = cases_eng,
   theme_minimal() +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
   labs(title = "Incident lab-confirmed cases of Covid-19 in England by date of testing",
-       subtitle = " ",
-       caption = "Data from https://coronavirus.data.gov.uk. \nMost recent 5 days omitted due to reporting delays.") +
+       subtitle = "Pillar 1",
+       caption = "Data from https://www.gov.uk/guidance/coronavirus-covid-19-information-for-the-public. \nMost recent 5 days omitted due to reporting delays.") +
   geom_col(alpha = 0.5) +
   geom_line(aes(x = Date, y = Daily_cases_MA7), col = "navyblue") +
   geom_vline(xintercept = date_sd, col = "red4") +
@@ -183,7 +183,7 @@ plot_cases_cum <- ggplot(data = cases_eng,
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
   labs(title = "Cumulative lab-confirmed cases of Covid-19 in England by date of testing",
        subtitle = " ",
-       caption = "Data from https://coronavirus.data.gov.uk. \nMost recent 5 days omitted due to reporting delays.") +
+       caption = "Data from https://www.gov.uk/guidance/coronavirus-covid-19-information-for-the-public. \nMost recent 5 days omitted due to reporting delays.") +
   geom_col(alpha = 0.5) +
   #geom_line(aes(x = Date, y = Cumulative_cases_end_MA7), col = "navyblue") +
   geom_vline(xintercept = date_sd, col = "red4") +
@@ -199,7 +199,7 @@ plot_cases_cum <- ggplot(data = cases_eng,
   geom_text(data = cases_eng, 
             aes(label = ifelse(Date == date_max, formatC(Cumulative_cases_end, 
                                                        format = "f", big.mark = ",", digits = 0), "")),
-            vjust = -1, size = 4) +
+            vjust = -1, size = 3) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
   scale_x_date(name = "Date", 
                limits = c(date_0, date_max + 7), 
@@ -207,8 +207,8 @@ plot_cases_cum <- ggplot(data = cases_eng,
                date_labels = "%d %b %C",
                expand = expansion(mult = c(0, 0))) +
   scale_y_continuous(name = "Number of lab-confirmed cases",
-                     limits = c(0, 300000), 
-                     breaks = seq(0, 300000, 30000),
+                     limits = c(0, 200000), 
+                     breaks = seq(0, 200000, 20000),
                      labels = comma_format(accuracy = 1),
                      expand = expansion(mult = c(0, 0)))
 plot_cases_cum
@@ -236,15 +236,15 @@ plot_deaths_hosp_cum <- ggplot(data = deaths_hosp_dor_eng,
   geom_text(data = deaths_hosp_dor_eng, 
             aes(label = ifelse(Date == date_max, formatC(Cumulative_deaths, 
                                                        format = "f", big.mark = ",", digits = 0), "")),
-            vjust = -1, size = 4) +
+            vjust = -1, size = 3) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
   scale_x_date(name = "Date", 
                limits = c(date_0, date_max + 7), 
                date_breaks = "1 week", date_labels = "%d %b %C",
                expand = expansion(mult = c(0, 0))) +
   scale_y_continuous(name = "Number of hospital deaths",
-                     limits = c(0, 300000), 
-                     breaks = seq(0, 300000, 30000),
+                     limits = c(0, 200000), 
+                     breaks = seq(0, 200000, 20000),
                      labels = comma_format(accuracy = 1),
                      expand = expansion(mult = c(0, 0)))
 plot_deaths_hosp_cum
@@ -273,15 +273,15 @@ plot_deaths_all_cum <- ggplot(data = deaths_all_dod_eng,
             aes(label = ifelse(Date == max(Date), 
                                formatC(Cumulative_deaths, 
                                        format = "f", big.mark = ",", digits = 0), "")),
-            vjust = -1, size = 4) +
+            vjust = -1, size = 3) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
   scale_x_date(name = "Date", 
                limits = c(date_0, date_max + 7), 
                date_breaks = "1 week", date_labels = "%d %b %C",
                expand = expansion(mult = c(0, 0))) +
   scale_y_continuous(name = "Number of hospital deaths",
-                     limits = c(0, 300000), 
-                     breaks = seq(0, 300000, 30000),
+                     limits = c(0, 200000), 
+                     breaks = seq(0, 200000, 20000),
                      labels = comma_format(accuracy = 1),
                      expand = expansion(mult = c(0, 0)))
 plot_deaths_all_cum
