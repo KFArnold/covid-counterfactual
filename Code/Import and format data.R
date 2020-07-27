@@ -57,15 +57,15 @@ rm(govuk_data_cases, govuk_data_deaths_hosp_dor, nhseng_data_deaths_hosp_dod, on
 # cases; deaths_hosp_dor; deaths_hosp_dod; deaths_all_dod
 
 # Format variable types, group by Area_name (and Pillar, if applicable)
-cases <- cases %>% mutate_at(vars(Area_name, Pillar), funs(as.factor)) %>%
-  mutate_at(vars(Daily_cases, Cumulative_cases), funs(as.numeric)) %>% 
-  mutate_at(vars(Date), funs(as.Date), format = "%d/%m/%Y") %>%
+cases <- cases %>% mutate_at(vars(Area_name, Pillar), as.factor) %>%
+  mutate_at(vars(Daily_cases, Cumulative_cases), as.numeric) %>% 
+  mutate_at(vars(Date), as.Date, format = "%d/%m/%Y") %>%
   group_by(Area_name, Pillar)
-deaths_hosp_dor <- deaths_hosp_dor %>% mutate_at(vars(Area_name, Area_code, Area_type), funs(as.factor)) %>% 
+deaths_hosp_dor <- deaths_hosp_dor %>% mutate_at(vars(Area_name, Area_code, Area_type), as.factor) %>% 
   group_by(Area_name)
-deaths_hosp_dod <- deaths_hosp_dod %>% mutate_at(vars(Area_name), funs(as.factor)) %>% 
+deaths_hosp_dod <- deaths_hosp_dod %>% mutate_at(vars(Area_name), as.factor) %>% 
   group_by(Area_name)
-deaths_all_dod <- deaths_all_dod %>% mutate_at(vars(Area_name), funs(as.factor)) %>% 
+deaths_all_dod <- deaths_all_dod %>% mutate_at(vars(Area_name), as.factor) %>% 
   group_by(Area_name)
 
 # Reorder data by date
