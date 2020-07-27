@@ -30,11 +30,6 @@ Version: 0.4-1
 Hash: 60a5c75e57aae4a0ce76cb7422939aaf
 Requires: Matrix
 
-Package: Metrics
-Source: CRAN
-Version: 0.1.4
-Hash: 665583b3b88463edf0d1ca2bdd017570
-
 Package: R6
 Source: CRAN
 Version: 2.4.1
