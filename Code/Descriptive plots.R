@@ -80,7 +80,7 @@ plot_cases_inc <- ggplot(data = cases_eng,
   theme_minimal() +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
   labs(title = "Incident lab-confirmed cases of Covid-19 in England by date of testing",
-       subtitle = "Pillar 1",
+       subtitle = "Pillar 1 data only",
        caption = "Data from https://www.gov.uk/guidance/coronavirus-covid-19-information-for-the-public. \nMost recent 5 days omitted due to reporting delays.") +
   geom_col(alpha = 0.5) +
   geom_line(aes(x = Date, y = Daily_cases_MA7), col = "navyblue") +
@@ -182,7 +182,7 @@ plot_cases_cum <- ggplot(data = cases_eng,
   theme_minimal() +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
   labs(title = "Cumulative lab-confirmed cases of Covid-19 in England by date of testing",
-       subtitle = " ",
+       subtitle = "Pillar 1 data only",
        caption = "Data from https://www.gov.uk/guidance/coronavirus-covid-19-information-for-the-public. \nMost recent 5 days omitted due to reporting delays.") +
   geom_col(alpha = 0.5) +
   #geom_line(aes(x = Date, y = Cumulative_cases_end_MA7), col = "navyblue") +
