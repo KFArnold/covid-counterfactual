@@ -1,0 +1,9 @@
+Simulation,Description,Date_sd,Date_lockdown,Date,CFR,CFR_value,Mean,C_025,C_975
+True,True,2020-03-17,2020-03-24,2020-06-01,cfr_hosp_dod,0.1766703240340979,27212,NA,NA
+True,True,2020-03-17,2020-03-24,2020-06-01,cfr_all_dod,0.29300057782077166,45130,NA,NA
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-06-01,cfr_hosp_dod,0.1766703240340979,27975,20320,37107
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24,2020-06-01,cfr_all_dod,0.29300057782077166,46395,33700,61541
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-06-01,cfr_hosp_dod,0.1766703240340979,7235,5370,8934
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17,2020-06-01,cfr_all_dod,0.29300057782077166,11999,8907,14816
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-06-01,cfr_hosp_dod,0.1766703240340979,1855,1420,2222
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10,2020-06-01,cfr_all_dod,0.29300057782077166,3076,2354,3684

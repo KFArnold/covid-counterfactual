@@ -1,0 +1,4 @@
+Simulation,Description,Date_sd,Date_lockdown
+Natural history,Social distancing and lockdown as implemented,2020-03-17,2020-03-24
+Counterfactual history,Social distancing and lockdown 1 week earlier,2020-03-10,2020-03-17
+Counterfactual history,Social distancing and lockdown 2 weeks earlier,2020-03-03,2020-03-10
