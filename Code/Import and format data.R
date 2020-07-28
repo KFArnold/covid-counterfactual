@@ -136,35 +136,35 @@ cases_eng_100 <- filter(cases_eng, Date >= date_100 & Date <= date_T)
 # Estimate case fatality rates
 # ------------------------------------------------------------------------------
 
-# Calculate case fatality rates = cumulative deaths / cumulative confirmed cases
+# Calculate case fatality rates = cumulative deaths / cumulative confirmed cases on date_T
 
 # (1) Using hospital deaths in England by day of death
 for (i in 1:nrow(deaths_hosp_dod_eng)) {
   
   date <- deaths_hosp_dod_eng$Date[i]
-  deaths_i <- filter(deaths_hosp_dod_eng, Date == date)$Cumulative_deaths
-  cases_i <- filter(cases_eng, Date == date)$Cumulative_cases_end
+  deaths_i <- deaths_hosp_dod_eng %>% filter(Date == date) %>% pull(Cumulative_deaths)
+  cases_i <- cases_eng %>% filter(Date == date) %>% pull(Cumulative_cases_end)
   
   cfr_i <- deaths_i / cases_i
   
   deaths_hosp_dod_eng[i, "Case_fatality_rate"] <- cfr_i
 } 
-cfr_hosp_dod <- tail(deaths_hosp_dod_eng$Case_fatality_rate, n = 1); cfr_hosp_dod
+cfr_hosp_dod <- deaths_hosp_dod_eng %>% filter(Date == date_T) %>% pull(Case_fatality_rate); cfr_hosp_dod
 #plot(deaths_hosp_dod_eng$Date, deaths_hosp_dod_eng$Case_fatality_rate)
 
-# (2) Using hospital deaths in England by day of reporting
-for (i in 1:nrow(deaths_hosp_dor_eng)) {
+# (2) Using all deaths in England by day of death
+for (i in 1:nrow(deaths_all_dod_eng)) {
   
-  date <- deaths_hosp_dor_eng$Date[i]
-  deaths_i <- filter(deaths_hosp_dor_eng, Date == date)$Cumulative_deaths
-  cases_i <- filter(cases_eng, Date == date)$Cumulative_cases_end
+  date <- deaths_all_dod_eng$Date[i]
+  deaths_i <- deaths_all_dod_eng %>% filter(Date == date) %>% pull(Cumulative_deaths)
+  cases_i <- cases_eng %>% filter(Date == date) %>% pull(Cumulative_cases_end)
   
   cfr_i <- deaths_i / cases_i
   
-  deaths_hosp_dor_eng[i, "Case_fatality_rate"] <- cfr_i
+  deaths_all_dod_eng[i, "Case_fatality_rate"] <- cfr_i
 } 
-cfr_hosp_dor <- tail(deaths_hosp_dor_eng$Case_fatality_rate, n = 1); cfr_hosp_dor
-#plot(deaths_hosp_dor_eng$Date, deaths_hosp_dor_eng$Case_fatality_rate)
+cfr_all_dod <- deaths_all_dod_eng %>% filter(Date == date_T) %>% pull(Case_fatality_rate); cfr_all_dod
+#plot(deaths_all_dod_eng$Date, deaths_all_dod_eng$Case_fatality_rate)
 
 # Remove loop variables
 rm(i, date, deaths_i, cases_i, cfr_i)

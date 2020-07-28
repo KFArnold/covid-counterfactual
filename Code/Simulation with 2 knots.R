@@ -154,7 +154,7 @@ summary_deaths_sim <- list()  # deaths
 # ------------------------------------------------------------------------------
 
 # Set seed
-set.seed(20)
+set.seed(23)
 
 # (1) Iterate through hypothetical interventions
 start <- Sys.time()
@@ -181,7 +181,7 @@ for (k in 1:n_sim) {
   # Create matrix for estimated deaths
   # (1 row per simulation run, 1 col per CFR)
   deaths_sim_k <- matrix(nrow = n_runs, ncol = 2,
-                         dimnames = list(NULL, c("cfr_hosp_dod", "cfr_hosp_dor")))
+                         dimnames = list(NULL, c("cfr_hosp_dod", "cfr_all_dod")))
   
   # (2) Iterate through possible knot date pairs
   for (i in 1:n_knots_best) {
@@ -351,7 +351,7 @@ summary_deaths_sim <- bind_rows(tibble(scenarios_true,
                                        CFR = colnames(deaths_sim_k)) %>%
                                   mutate(CFR_value = sapply(CFR, function(x) eval(parse(text = x)))) %>%
                                   mutate(Mean = round(c(filter(deaths_hosp_dod_eng, Date == date_T)$Cumulative_deaths, 
-                                                        filter(deaths_hosp_dor_eng, Date == date_T)$Cumulative_deaths))),
+                                                        filter(deaths_all_dod_eng, Date == date_T)$Cumulative_deaths))),
                                 summary_deaths_sim)
 
 # Create summary table of cases and deaths at time_T

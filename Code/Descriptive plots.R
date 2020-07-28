@@ -24,14 +24,14 @@ out <- paste0("./Results/")
 
 ## Case fatality rates ---------------------------------------------------------
 
-# By date of death
+# Using hospital deaths in England by day of death
 cfr_hosp_dod_plot <- ggplot(data = deaths_hosp_dod_eng,
                             aes(x = Date, y = Case_fatality_rate)) +
   theme_minimal() +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
   labs(title = "Case fatality ratio in England",
        subtitle = "According to hospital deaths by date of death",
-       caption = "Data from https://www.england.nhs.uk/statistics/statistical-work-areas/covid-19-daily-deaths/. \nMost recent 5 days omitted due to reporting delays.") +
+       caption = "Data from https://www.england.nhs.uk/statistics/statistical-work-areas/covid-19-daily-deaths/.") +
   geom_line() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
   scale_x_date(name = "Date", 
@@ -40,19 +40,19 @@ cfr_hosp_dod_plot <- ggplot(data = deaths_hosp_dod_eng,
                date_labels = "%d %b %C",
                expand = expansion(mult = c(0, 0))) +
   scale_y_continuous(name = "Case fatality ratio",
-                     limits = c(0, 0.3), 
-                     breaks = seq(0, 0.3, 0.05),
+                     limits = c(0, 0.35), 
+                     breaks = seq(0, 0.35, 0.05),
                      expand = expansion(mult = c(0, 0)))
 cfr_hosp_dod_plot
 
-# By date of reporting
-cfr_hosp_dor_plot <- ggplot(data = deaths_hosp_dor_eng,
+# Using all deaths in England by day of death
+cfr_all_dod_plot <- ggplot(data = deaths_all_dod_eng,
                             aes(x = Date, y = Case_fatality_rate)) +
   theme_minimal() +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
   labs(title = "Case fatality ratio in England",
-       subtitle = "According to hospital deaths by date of reporting",
-       caption = "Data from https://coronavirus.data.gov.uk. \nMost recent 5 days omitted due to reporting delays.") +
+       subtitle = "According to all deaths by date of death",
+       caption = "Data from https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/\ndeaths/datasets/weeklyprovisionalfiguresondeathsregisteredinenglandandwales.") +
   geom_line() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
   scale_x_date(name = "Date", 
@@ -61,14 +61,14 @@ cfr_hosp_dor_plot <- ggplot(data = deaths_hosp_dor_eng,
                date_labels = "%d %b %C",
                expand = expansion(mult = c(0, 0))) +
   scale_y_continuous(name = "Case fatality ratio",
-                     limits = c(0, 0.3), 
-                     breaks = seq(0, 0.3, 0.05),
+                     limits = c(0, 0.35), 
+                     breaks = seq(0, 0.35, 0.05),
                      expand = expansion(mult = c(0, 0)))
-cfr_hosp_dor_plot
+cfr_all_dod_plot
 
 # Save plot
-#ggarrange(cfr_hosp_dor_plot, cfr_hosp_dod_plot, nrow = 2)
-g <- ggarrange(cfr_hosp_dor_plot, cfr_hosp_dod_plot, nrow = 2)
+#ggarrange(cfr_hosp_dod_plot, cfr_all_dod_plot, nrow = 2)
+g <- ggarrange(cfr_hosp_dod_plot, cfr_all_dod_plot, nrow = 2)
 filename <- paste0("Plot - descriptive - case fatality ratio.png")
 ggsave(filename = paste0(out, filename), plot = g, width = 7, height = 10)
 
