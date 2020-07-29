@@ -195,6 +195,9 @@ knots_best <- knots_best %>% mutate(Pois_dev_cum_inv = 1 / Pois_dev_cum,
                                     Prob_unequal = Pois_dev_cum_inv * Norm) %>%
   select(-c(Pois_dev_cum_inv, Norm))
 
+# Arrange best knots dataframe by knot
+knots_best <- knots_best %>% arrange(Knot_date_1, Knot_date_2)
+
 # Export
 filename <- paste0("Best knot points.csv")
 write_csv(knots_best, path = paste0(out, filename))
