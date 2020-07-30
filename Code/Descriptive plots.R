@@ -31,7 +31,7 @@ colors <- c("Hospital deaths" = "darkorange", "All deaths" = "darkgreen")
 cfr_plot <- ggplot(data = deaths_hosp_dod_eng,
                             aes(x = Date, y = Case_fatality_rate)) +
   theme_minimal() +
-  theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
+  theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")) +
   labs(title = "Case fatality ratio (CFR) in England",
        subtitle = " ") +
   geom_line(aes(color = "Hospital deaths")) +
@@ -43,16 +43,16 @@ cfr_plot <- ggplot(data = deaths_hosp_dod_eng,
                date_breaks = "1 week", 
                date_labels = "%d %b %C",
                expand = expansion(mult = c(0, 0))) +
-  scale_y_continuous(name = "Case fatality ratio",
+  scale_y_continuous(name = "CFR",
                      limits = c(0, 0.35), 
                      breaks = seq(0, 0.35, 0.05),
                      expand = expansion(mult = c(0, 0))) +
-  scale_color_manual(name = "CFR", values = colors)
+  scale_color_manual(name = " ", values = colors)
 cfr_plot
 
 # Save plot
 filename <- paste0("Plot - descriptive - case fatality ratio.png")
-ggsave(filename = paste0(out, filename), plot = cfr_plot, width = 7, height = 5)
+ggsave(filename = paste0(out, filename), plot = cfr_plot, width = 8, height = 5)
 
 ## Incidence -------------------------------------------------------------------
 
