@@ -88,12 +88,12 @@ plot_cases_inc <- ggplot(data = cases_eng,
                      expand = expansion(mult = c(0, 0)))
 plot_cases_inc
 
-# Hospital deaths (by day of reporting)
-plot_deaths_hosp_inc <- ggplot(data = deaths_hosp_dor_eng, 
+# Hospital deaths 
+plot_deaths_hosp_inc <- ggplot(data = deaths_hosp_dod_eng, 
                                aes(x = Date, y = Daily_deaths)) +
   theme_minimal() +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
-  labs(title = "Incident hospital deaths from Covid-19 in England by date of reporting",
+  labs(title = "Incident hospital deaths from Covid-19 in England (by date of death)",
        subtitle = " ",
        caption = "Data from https://www.england.nhs.uk/. \nMost recent 5 days omitted due to reporting delays.") +
   geom_col(alpha = 0.5) +
@@ -119,12 +119,12 @@ plot_deaths_hosp_inc <- ggplot(data = deaths_hosp_dor_eng,
                      expand = expansion(mult = c(0, 0)))
 plot_deaths_hosp_inc
 
-# All deaths (by day of death)
+# All deaths 
 plot_deaths_all_inc <- ggplot(data = deaths_all_dod_eng, 
                               aes(x = Date, y = Daily_deaths)) +
   theme_minimal() +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
-  labs(title = "Incident deaths from Covid-19 in England by date of death",
+  labs(title = "Incident deaths from Covid-19 in England (by date of death)",
        subtitle = " ",
        caption = "Data from https://www.ons.gov.uk/.") +
   geom_col(alpha = 0.5) +
@@ -195,12 +195,12 @@ plot_cases_cum <- ggplot(data = cases_eng,
                      expand = expansion(mult = c(0, 0)))
 plot_cases_cum
 
-# Hospital deaths (by day of reporting)
-plot_deaths_hosp_cum <- ggplot(data = deaths_hosp_dor_eng, 
+# Hospital deaths
+plot_deaths_hosp_cum <- ggplot(data = deaths_hosp_dod_eng, 
                                aes(x = Date, y = Cumulative_deaths)) +
   theme_minimal() +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
-  labs(title = "Cumulative hospital dealths from Covid-19 in England by date of reporting",
+  labs(title = "Cumulative hospital dealths from Covid-19 in England (by date of death)",
        subtitle = " ", 
        caption = "Data from https://www.england.nhs.uk/. \nMost recent 5 days omitted due to reporting delays.") +
   geom_col(alpha = 0.5) +
@@ -215,7 +215,7 @@ plot_deaths_hosp_cum <- ggplot(data = deaths_hosp_dor_eng,
                 label = paste0("Date of\nlockdown:\n", as.character(date_lockdown, format = "%d %b %C")),
                 hjust = 0),
             color = "red4", check_overlap = TRUE, show.legend = FALSE) +
-  geom_text(data = deaths_hosp_dor_eng, 
+  geom_text(data = deaths_hosp_dod_eng, 
             aes(label = ifelse(Date == date_max, formatC(Cumulative_deaths, 
                                                        format = "f", big.mark = ",", digits = 0), "")),
             vjust = -1, size = 3) +
@@ -231,12 +231,12 @@ plot_deaths_hosp_cum <- ggplot(data = deaths_hosp_dor_eng,
                      expand = expansion(mult = c(0, 0)))
 plot_deaths_hosp_cum
 
-# All deaths (by day of death)
+# All deaths
 plot_deaths_all_cum <- ggplot(data = deaths_all_dod_eng, 
                               aes(x = Date, y = Cumulative_deaths)) +
   theme_minimal() +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
-  labs(title = "Cumulative dealths from Covid-19 in England by date of death",
+  labs(title = "Cumulative dealths from Covid-19 in England (by date of death)",
        subtitle = " ", 
        caption = "Data from https://www.ons.gov.uk/.") +
   geom_col(alpha = 0.5) +
