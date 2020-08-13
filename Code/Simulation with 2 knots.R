@@ -482,7 +482,7 @@ for (i in 1:nrow(scenarios_sim)) {
 
 # Save plots
 p <- ggarrange(plotlist = plot_cases_inc_sim, nrow = length(plot_cases_inc_sim))
-g <- annotate_figure(p, top = text_grob("Incident lab-confirmed cases of Covid-19 in England (Pillar 1)", size = 15),
+g <- annotate_figure(p, top = text_grob("Incident lab-confirmed cases of COVID-19 in England\n(Pillar 1)", size = 15),
                      bottom = text_grob("Data from https://www.gov.uk/guidance/coronavirus-covid-19-information-for-the-public.", size = 10))
 ggsave(paste0(out, "Plot - true vs counterfactual - incident cases.png"),
        plot = g, width = 6, height = 4*length(plot_cases_inc_sim))
@@ -560,7 +560,7 @@ for (i in 1:nrow(scenarios_sim)) {
 
 # Save plots
 p <- ggarrange(plotlist = plot_cases_cum_sim, nrow = length(plot_cases_cum_sim))
-g <- annotate_figure(p, top = text_grob("Cumulative lab-confirmed cases of Covid-19 in England (Pillar 1)", size = 15),
+g <- annotate_figure(p, top = text_grob("Cumulative lab-confirmed cases of COVID-19 in England\n(Pillar 1)", size = 15),
                      bottom = text_grob("Data from https://www.gov.uk/guidance/coronavirus-covid-19-information-for-the-public.", size = 10))
 ggsave(paste0(out, "Plot - true vs counterfactual - cumulative cases.png"),
        plot = g, width = 6, height = 4*length(plot_cases_cum_sim))
@@ -576,7 +576,7 @@ plot_exp_growth_cases <- ggplot(data = filter(cases_eng, Date <= date_T),
                                     y = Daily_cases)) +
   theme_minimal() +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
-  labs(title = "Exponential growth of Covid-19 cases in England (Pillar 1)",
+  labs(title = "Exponential growth of COVID-19 cases in England (Pillar 1)",
        subtitle = "Cumulative versus incident cases",
        caption = paste0("Data from https://www.gov.uk/guidance/coronavirus-covid-19-information-for-the-public,\n up to ", 
                         as.character(date_T, format = "%d %b %C"), ".")) +
