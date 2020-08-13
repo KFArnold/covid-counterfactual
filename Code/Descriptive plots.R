@@ -2,7 +2,7 @@
 # Notes
 # ------------------------------------------------------------------------------
 
-# This script creates descriptive plots using data on Covid-19 from gov.uk, NHS England, and ONS
+# This script creates descriptive plots using data on COVID-19 from gov.uk, NHS England, and ONS
 
 # ------------------------------------------------------------------------------
 # Set up
@@ -32,7 +32,7 @@ cfr_plot <- ggplot(data = deaths_hosp_dod_eng,
                             aes(x = Date, y = Case_fatality_rate)) +
   theme_minimal() +
   theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")) +
-  labs(title = "Case fatality ratio (CFR) in England",
+  labs(title = "Case fatality ratio (CFR) of COVID-19 in England",
        subtitle = " ") +
   geom_line(aes(color = "Hospital deaths")) +
   geom_line(data = deaths_all_dod_eng,
@@ -61,9 +61,9 @@ plot_cases_inc <- ggplot(data = cases_eng,
                          aes(x = Date, y = Daily_cases)) +
   theme_minimal() +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
-  labs(title = "Incident lab-confirmed cases of Covid-19 in England by date of testing",
+  labs(title = "Incident lab-confirmed cases of COVID-19 in England",
        subtitle = "Pillar 1 data only",
-       caption = "Data from https://www.gov.uk/guidance/coronavirus-covid-19-information-for-the-public. \nMost recent 5 days omitted due to reporting delays.") +
+       caption = "Data from https://www.gov.uk/guidance/coronavirus-covid-19-information-for-the-public.") +
   geom_col(alpha = 0.5) +
   geom_line(aes(x = Date, y = Daily_cases_MA7), col = "navyblue") +
   geom_vline(xintercept = date_sd, col = "red4") +
@@ -93,9 +93,9 @@ plot_deaths_hosp_inc <- ggplot(data = deaths_hosp_dod_eng,
                                aes(x = Date, y = Daily_deaths)) +
   theme_minimal() +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
-  labs(title = "Incident hospital deaths from Covid-19 in England (by date of death)",
+  labs(title = "Incident hospital deaths from COVID-19 in England",
        subtitle = " ",
-       caption = "Data from https://www.england.nhs.uk/. \nMost recent 5 days omitted due to reporting delays.") +
+       caption = "Data from https://www.england.nhs.uk/.") +
   geom_col(alpha = 0.5) +
   geom_line(aes(x = Date, y = Daily_deaths_MA7), col = "navyblue") +
   geom_vline(xintercept = date_sd, col = "red4") +
@@ -124,7 +124,7 @@ plot_deaths_all_inc <- ggplot(data = deaths_all_dod_eng,
                               aes(x = Date, y = Daily_deaths)) +
   theme_minimal() +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
-  labs(title = "Incident deaths from Covid-19 in England (by date of death)",
+  labs(title = "Incident deaths from COVID-19 across all settings in England",
        subtitle = " ",
        caption = "Data from https://www.ons.gov.uk/.") +
   geom_col(alpha = 0.5) +
@@ -154,7 +154,7 @@ plot_deaths_all_inc
 #ggarrange(plot_cases_inc, plot_deaths_hosp_inc, plot_deaths_all_inc, nrow = 3)
 g <- ggarrange(plot_cases_inc, plot_deaths_hosp_inc, plot_deaths_all_inc, nrow = 3)
 filename <- paste0("Plot - descriptive - incident cases and deaths.png")
-ggsave(filename = paste0(out, filename), plot = g, width = 8, height = 15)
+ggsave(filename = paste0(out, filename), plot = g, width = 7, height = 15)
 
 ## Cumulative ------------------------------------------------------------------
 
@@ -163,11 +163,11 @@ plot_cases_cum <- ggplot(data = cases_eng,
                          aes(x = Date, y = Cumulative_cases_end)) +
   theme_minimal() +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
-  labs(title = "Cumulative lab-confirmed cases of Covid-19 in England by date of testing",
+  labs(title = "Cumulative lab-confirmed cases of COVID-19 in England",
        subtitle = "Pillar 1 data only",
-       caption = "Data from https://www.gov.uk/guidance/coronavirus-covid-19-information-for-the-public. \nMost recent 5 days omitted due to reporting delays.") +
+       caption = "Data from https://www.gov.uk/guidance/coronavirus-covid-19-information-for-the-public.") +
   geom_col(alpha = 0.5) +
-  #geom_line(aes(x = Date, y = Cumulative_cases_end_MA7), col = "navyblue") +
+  geom_line(aes(x = Date, y = Cumulative_cases_end_MA7), col = "navyblue") +
   geom_vline(xintercept = date_sd, col = "red4") +
   geom_text(aes(x = date_sd - 1, y = 100000, 
                 label = paste0("Date of\nsocial distancing:\n", as.character(date_sd, format = "%d %b %C")), 
@@ -200,11 +200,11 @@ plot_deaths_hosp_cum <- ggplot(data = deaths_hosp_dod_eng,
                                aes(x = Date, y = Cumulative_deaths)) +
   theme_minimal() +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
-  labs(title = "Cumulative hospital dealths from Covid-19 in England (by date of death)",
+  labs(title = "Cumulative hospital dealths from COVID-19 in England",
        subtitle = " ", 
-       caption = "Data from https://www.england.nhs.uk/. \nMost recent 5 days omitted due to reporting delays.") +
+       caption = "Data from https://www.england.nhs.uk/.") +
   geom_col(alpha = 0.5) +
-  #geom_line(aes(x = Date, y = Cumulative_deaths_MA7), col = "navyblue") +
+  geom_line(aes(x = Date, y = Cumulative_deaths_MA7), col = "navyblue") +
   geom_vline(xintercept = date_sd, col = "red4") +
   geom_text(aes(x = date_sd - 1, y = 100000, 
                 label = paste0("Date of\nsocial distancing:\n", as.character(date_sd, format = "%d %b %C")), 
@@ -236,11 +236,11 @@ plot_deaths_all_cum <- ggplot(data = deaths_all_dod_eng,
                               aes(x = Date, y = Cumulative_deaths)) +
   theme_minimal() +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) +
-  labs(title = "Cumulative dealths from Covid-19 in England (by date of death)",
+  labs(title = "Cumulative deaths from COVID-19 across all settings in England",
        subtitle = " ", 
        caption = "Data from https://www.ons.gov.uk/.") +
   geom_col(alpha = 0.5) +
-  #geom_line(aes(x = Date, y = Cumulative_deaths_MA7), col = "navyblue") +
+  geom_line(aes(x = Date, y = Cumulative_deaths_MA7), col = "navyblue") +
   geom_vline(xintercept = date_sd, col = "red4") +
   geom_text(aes(x = date_sd - 1, y = 100000, 
                 label = paste0("Date of\nsocial distancing:\n", as.character(date_sd, format = "%d %b %C")), 
@@ -272,5 +272,5 @@ plot_deaths_all_cum
 #ggarrange(plot_cases_cum, plot_deaths_hosp_cum, plot_deaths_all_cum, nrow = 3)
 g <- ggarrange(plot_cases_cum, plot_deaths_hosp_cum, plot_deaths_all_cum, nrow = 3)
 filename <- paste0("Plot - descriptive - cumulative cases and deaths.png")
-ggsave(filename = paste0(out, filename), plot = g, width = 8, height = 15)
+ggsave(filename = paste0(out, filename), plot = g, width = 7, height = 15)
 
