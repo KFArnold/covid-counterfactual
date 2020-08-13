@@ -67,6 +67,16 @@ Percent_Change <- function(initial, final) {
   (final - initial) / initial * 100
 }
 
+# Function to calculate Poisson deviance between two vectors
+# from: https://en.wikipedia.org/wiki/Deviance_(statistics)
+# Arguments: obs = vector of observed values, sim = vector of simulated/predicted values
+Calc_Pois_Dev <- function(obs, sim) {
+  
+  D <- 2 * sum(obs * log(obs / sim) - (obs - sim))
+  return(D)
+  
+}
+
 # ------------------------------------------------------------------------------
 # Define simulation parameters
 # ------------------------------------------------------------------------------
@@ -323,6 +333,16 @@ for (k in 1:n_sim) {
 end <- Sys.time()
 end - start
 
+# Remove loop variables
+rm(k, i, t, j, scenarios_sim_k, description_k, knots_sim_k,
+   daily_cases_sim_k, cumulative_cases_end_sim_k, growth_factor_sim_k, deaths_sim_k,
+   knots_sim_i, knot_date_1_i, knot_date_2_i, knot_1_i, knot_2_i,
+   growth_factor_1_i, growth_factor_2_i, growth_factor_3_i,
+   growth_factor_1_sd_i, growth_factor_2_sd_i, growth_factor_3_sd_i, n_runs_i, 
+   daily_cases_sim_i, cumulative_cases_end_sim_i, growth_factor_sim_i, 
+   inc_tminus1, cum_tminus1, inc_t, cum_t, growth, growth_factor,
+   cfr, summary, start, end)
+
 # Combine simulated data from all natural and counterfactual histories, if desired
 #data_sim <- bind_rows(data_sim)  # daily cases, cumulative cases, growth factors
 #deaths_sim <- bind_rows(deaths_sim)  # deaths
@@ -365,6 +385,19 @@ deaths_T <- summary_deaths_sim %>% rename_at(vars(Mean, C_025, C_975), function(
 summary_T <- full_join(cases_T, deaths_T)
 rm(cases_natural_history_T, cases_T, deaths_T)
 
+# Calculate Poisson deviance between mean predicted and true (7-day moving average) natural history
+## Incident cases
+true_inc <- cases_eng_100$Daily_cases_MA7
+pred_inc <- summary_daily_cases_sim %>% filter(Simulation == "Natural history", Date >= date_100) %>% pull(Mean)
+pois_dev_inc <- Calc_Pois_Dev(obs = true_inc, sim = pred_inc)
+pois_dev_inc
+## Cumulative cases
+true_cum <- cases_eng_100$Cumulative_cases_end_MA7
+pred_cum <- summary_cumulative_cases_end_sim %>% filter(Simulation == "Natural history", Date >= date_100) %>% pull(Mean)
+pois_dev_cum <- Calc_Pois_Dev(obs = true_cum, sim = pred_cum)
+pois_dev_cum
+rm(true_inc, pred_inc, true_cum, pred_cum)
+
 # Export all summary data
 write_csv(summary_daily_cases_sim, path = paste0(out, "Summary - daily cases.csv"))
 write_csv(summary_cumulative_cases_end_sim, path = paste0(out, "Summary - cumulative cases.csv"))
@@ -374,16 +407,6 @@ write_csv(summary_T, path = paste0(out, "Final summary - cases and deaths at end
 
 # Export descriptions of simulated interventions
 write_csv(scenarios_sim, path = paste0(out, "Hypothetical interventions.csv"))
-
-# Remove loop variables
-rm(k, i, t, j, scenarios_sim_k, description_k, knots_sim_k,
-   daily_cases_sim_k, cumulative_cases_end_sim_k, growth_factor_sim_k, deaths_sim_k,
-   knots_sim_i, knot_date_1_i, knot_date_2_i, knot_1_i, knot_2_i,
-   growth_factor_1_i, growth_factor_2_i, growth_factor_3_i,
-   growth_factor_1_sd_i, growth_factor_2_sd_i, growth_factor_3_sd_i, n_runs_i, 
-   daily_cases_sim_i, cumulative_cases_end_sim_i, growth_factor_sim_i, 
-   inc_tminus1, cum_tminus1, inc_t, cum_t, growth, growth_factor,
-   cfr, summary, start, end)
 
 # ------------------------------------------------------------------------------
 # Figures
