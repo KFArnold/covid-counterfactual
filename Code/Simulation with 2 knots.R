@@ -333,16 +333,6 @@ for (k in 1:n_sim) {
 end <- Sys.time()
 end - start
 
-# Remove loop variables
-rm(k, i, t, j, scenarios_sim_k, description_k, knots_sim_k,
-   daily_cases_sim_k, cumulative_cases_end_sim_k, growth_factor_sim_k, deaths_sim_k,
-   knots_sim_i, knot_date_1_i, knot_date_2_i, knot_1_i, knot_2_i,
-   growth_factor_1_i, growth_factor_2_i, growth_factor_3_i,
-   growth_factor_1_sd_i, growth_factor_2_sd_i, growth_factor_3_sd_i, n_runs_i, 
-   daily_cases_sim_i, cumulative_cases_end_sim_i, growth_factor_sim_i, 
-   inc_tminus1, cum_tminus1, inc_t, cum_t, growth, growth_factor,
-   cfr, summary, start, end)
-
 # Combine simulated data from all natural and counterfactual histories, if desired
 #data_sim <- bind_rows(data_sim)  # daily cases, cumulative cases, growth factors
 #deaths_sim <- bind_rows(deaths_sim)  # deaths
@@ -407,6 +397,16 @@ write_csv(summary_T, path = paste0(out, "Final summary - cases and deaths at end
 
 # Export descriptions of simulated interventions
 write_csv(scenarios_sim, path = paste0(out, "Hypothetical interventions.csv"))
+
+# Remove loop variables
+rm(k, i, t, j, scenarios_sim_k, description_k, knots_sim_k,
+   daily_cases_sim_k, cumulative_cases_end_sim_k, growth_factor_sim_k, deaths_sim_k,
+   knots_sim_i, knot_date_1_i, knot_date_2_i, knot_1_i, knot_2_i,
+   growth_factor_1_i, growth_factor_2_i, growth_factor_3_i,
+   growth_factor_1_sd_i, growth_factor_2_sd_i, growth_factor_3_sd_i, n_runs_i, 
+   daily_cases_sim_i, cumulative_cases_end_sim_i, growth_factor_sim_i, 
+   inc_tminus1, cum_tminus1, inc_t, cum_t, growth, growth_factor,
+   cfr, summary, start, end)
 
 # ------------------------------------------------------------------------------
 # Figures
