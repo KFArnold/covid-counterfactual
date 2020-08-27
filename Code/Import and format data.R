@@ -71,11 +71,25 @@ cases <- cases %>% filter(Date <= date_max)
 deaths_hosp_dod <- deaths_hosp_dod %>% filter(Date <= date_max)
 deaths_all_dod <- deaths_all_dod %>% filter(Date <= date_max)
 
-# Retain only country-level (and Pillar 1) data for England and remove other data files
-cases_eng <- cases %>% filter(Area_name == "England", Pillar == "Pillar 1")
+# Retain country-level cases data by pillar for England
+## Pillar 1
+cases_eng_p1 <- cases %>% filter(Area_name == "England", Pillar == "Pillar 1") %>% 
+  ungroup(Pillar) %>% select(-Pillar)
+## Pillars 1 and 2 (summed)
+cases_eng_p12 <- cases %>% filter(Area_name == "England", Pillar == "Pillar 1" | Pillar == "Pillar 2")
+cases_eng_p12 <- cases_eng_p12 %>% group_by(Area_name, Date) %>% 
+  summarise(Daily_cases = sum(Daily_cases), Cumulative_cases = sum(Cumulative_cases), .groups = "drop_last")
+
+# Select cases data to use for analysis
+cases_eng <- cases_eng_p1  # (pillar 1 only - primary analysis)
+#cases_eng <- cases_eng_p12  # (pillars 1 and 2 - sensitivity analysis)
+
+# Retain country-level deaths data for England 
 deaths_hosp_dod_eng <- deaths_hosp_dod %>% filter(Area_name == "England")
 deaths_all_dod_eng <- deaths_all_dod %>% filter(Area_name == "England")
-rm(cases, deaths_hosp_dod, deaths_all_dod)
+
+# Remove unused data files
+rm(cases, cases_eng_p1, cases_eng_p12, deaths_hosp_dod, deaths_all_dod)
 
 # Calculate cumulative cases at beginning of each day
 # (current counts represent cases at end of each day)
