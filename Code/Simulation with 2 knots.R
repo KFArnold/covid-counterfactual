@@ -13,7 +13,8 @@
 
 # Load required packages
 packrat::restore()
-library(tidyverse); library(lspline); library(forecast); library(ggpubr); library(scales)
+library(tidyverse); library(lspline); library(forecast); library(ggpubr); 
+library(scales); library(shadowtext)
 
 # Run source code to import and format data
 source("./Code/Import and format data.R")
@@ -652,3 +653,112 @@ ggsave(paste0(out, "Plot - Cumulative vs incident cases - normal scale.png"),
 # Remove plotting objects
 rm(i, knots_best_i, knot_date_1, knot_date_2, knot_1, knot_2, 
    slope_1, slope_2, slope_3, int_1, int_2, int_3)
+
+## Plot combined figures -------------------------------------------------------
+
+# Combine Simulation and Description columns into 1 factor
+summary_daily_cases_sim_factor <- summary_daily_cases_sim %>% 
+  filter(Simulation != "True") %>%
+  unite(Sim_Desc, c(Simulation, Description), sep = ": ", remove = FALSE) %>%
+  mutate(Sim_Desc = factor(Sim_Desc,
+                           levels = c("Natural history: Social distancing and lockdown as implemented",
+                                      "Counterfactual history: Social distancing and lockdown 1 week earlier",
+                                      "Counterfactual history: Social distancing and lockdown 2 weeks earlier"))) 
+summary_cumulative_cases_end_sim_factor <- summary_cumulative_cases_end_sim %>%
+  filter(Simulation != "True") %>%
+  unite(Sim_Desc, c(Simulation, Description), sep = ": ", remove = FALSE) %>%
+  mutate(Sim_Desc = factor(Sim_Desc,
+                           levels = c("Natural history: Social distancing and lockdown as implemented",
+                                      "Counterfactual history: Social distancing and lockdown 1 week earlier",
+                                      "Counterfactual history: Social distancing and lockdown 2 weeks earlier"))) 
+
+# (1) Plot incident cases
+## Observed
+plot_cases_inc_sim_all <- ggplot(data = filter(cases_eng, Date <= date_T),
+       aes(x = Date, y = Daily_cases)) +
+  theme_minimal() +
+  theme(plot.margin = unit(c(0.5, 1, 0.5, 1), "cm"),
+        axis.text.x = element_text(angle = 90, vjust = 0.5), 
+        legend.position = "bottom") +
+  labs(title = "Incident lab-confirmed cases",
+       subtitle = "(Pillar 1)") +
+  geom_col(alpha = 0.4) +
+  scale_x_date(name = "Date", 
+               limits = c(date_0, date_T + 7), 
+               date_breaks = "1 week", 
+               date_labels = "%d %b %C",
+               expand = expansion(mult = c(0, 0))) +
+  scale_y_continuous(name = "Number of lab-confirmed cases",
+                     limits = c(0, 6000), 
+                     breaks = seq(0, 6000, 1000),
+                     labels = comma_format(accuracy = 1),
+                     expand = expansion(mult = c(0.01, 0.01)))
+## Add simulated lines
+plot_cases_inc_sim_all <- plot_cases_inc_sim_all +
+  geom_line(data = summary_daily_cases_sim_factor,
+            aes(x = Date, y = Mean, color = Sim_Desc),
+            size = 1) +
+  geom_ribbon(data = summary_daily_cases_sim_factor,
+              aes(x = Date, y = Mean, fill = Sim_Desc, ymin = C_025, ymax = C_975),
+              alpha = 0.2) +
+  guides(colour = guide_legend(nrow = 3),
+         fill = guide_legend(nrow = 3)) +
+  scale_color_manual(name = "Simulation:",
+                     values = c("navyblue", "darkorchid", "mediumseagreen")) +
+  scale_fill_manual(name = "Simulation:",
+                    values = c("navyblue", "darkorchid", "mediumseagreen"))
+
+
+# (1) Plot cumulative cases
+## Observed
+plot_cases_cum_sim_all <- ggplot(data = filter(cases_eng, Date <= date_T),
+                                 aes(x = Date, y = Cumulative_cases_end)) +
+  theme_minimal() +
+  theme(plot.margin = unit(c(0.5, 1, 0.5, 1), "cm"),
+        axis.text.x = element_text(angle = 90, vjust = 0.5),
+        legend.position = "bottom") +
+  labs(title = "Cumulative lab-confirmed cases",
+       subtitle = "(Pillar 1)") +
+  geom_col(alpha = 0.4) +
+  scale_x_date(name = "Date", 
+               limits = c(date_0, date_T + 7), 
+               date_breaks = "1 week", 
+               date_labels = "%d %b %C",
+               expand = expansion(mult = c(0, 0))) +
+  scale_y_continuous(name = "Number of lab-confirmed cases",
+                     limits = c(0, 240000), 
+                     breaks = seq(0, 240000, 30000),
+                     labels = comma_format(accuracy = 1),
+                     expand = expansion(mult = c(0, 0)))
+## Add simulated lines
+plot_cases_cum_sim_all <- plot_cases_cum_sim_all +
+  geom_line(data = summary_cumulative_cases_end_sim_factor,
+            aes(x = Date, y = Mean, color = Sim_Desc),
+            size = 1) +
+  geom_ribbon(data = summary_cumulative_cases_end_sim_factor,
+              aes(x = Date, y = Mean, fill = Sim_Desc, ymin = C_025, ymax = C_975),
+              alpha = 0.2) +
+  geom_shadowtext(data = summary_cumulative_cases_end_sim_factor, 
+                  aes(x = Date, y = Mean,
+                      label = ifelse(Date == date_T, formatC(Mean, 
+                                                             format = "f", big.mark = ",", digits = 0), ""),
+                      color = Sim_Desc),
+                  vjust = -1, size = 3, bg.color = "white", bg.r = 0.25, 
+                  inherit.aes = FALSE, show.legend = FALSE) +
+  guides(colour = guide_legend(nrow = 3),
+         fill = guide_legend(nrow = 3)) +
+  scale_color_manual(name = "Simulation:",
+                     values = c("navyblue", "darkorchid", "mediumseagreen")) +
+  scale_fill_manual(name = "Simulation:",
+                    values = c("navyblue", "darkorchid", "mediumseagreen"))
+
+# Combind plots and save
+plot_cases_sim_all <- ggarrange(plotlist = list(plot_cases_inc_sim_all, plot_cases_cum_sim_all), align = "h",
+                                legend.grob = get_legend(plot_cases_inc_sim_all), legend = "bottom", 
+                                nrow = 1, ncol = 2)
+ggsave(paste0(out, "Plot - true vs counterfactual - all cases combined.png"),
+       plot = plot_cases_sim_all, width = 6*2, height = 6)
+
+# Remove plotting objects
+rm(summary_daily_cases_sim_factor, summary_cumulative_cases_end_sim_factor)
+
