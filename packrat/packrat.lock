@@ -1,6 +1,6 @@
 PackratFormat: 1.4
 PackratVersion: 0.5.0
-RVersion: 4.0.0
+RVersion: 4.0.3
 Repos: CRAN=https://cran.rstudio.com/
 
 Package: BH
@@ -657,6 +657,12 @@ Source: CRAN
 Version: 0.4-2
 Hash: b915e37654e476cbad2ceb063a2b8edb
 Requires: R6, stringr
+
+Package: shadowtext
+Source: CRAN
+Version: 0.0.8
+Hash: 712140bd9d812644882635e5156db3f7
+Requires: ggplot2, scales
 
 Package: sp
 Source: CRAN
